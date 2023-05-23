@@ -1,0 +1,65 @@
+<router-outlet>
+    <div class="container mt-5">
+        <div class="row">
+             <div class="col-12 border-bottom border-success mb-1">
+                 <h1 class="fw-semibold">Carrito de compras</h1>
+             </div>
+            <div *ngIf="!buys || emptyObject()" class="col-12 p-2">
+                <div class="d-flex flex-wrap justify-content-center align-items-center p-5" style="border: 1px solid yellowgreen; border-radius: 1rem">
+                    <span class="material-symbols-outlined" style="font-size: 10rem; color:yellowgreen">
+                        production_quantity_limits
+                    </span>
+                    <p class="fs-1" style="color:yellowgreen">Aun no has añadido productos al carrito</p>
+                </div>
+            </div>
+            <div *ngIf="buys && !emptyObject()">
+                <div *ngFor="let publication of stocks" class="col-12 p-2 d-flex justify-content-center">
+                    <div class="row w-100" style="border: 1px solid green; border-radius: 1rem">
+                        <div class="col-md-2 col-12 p-3 d-flex justify-content-center ">
+                            <img style="max-width: 100%;max-height: 100px" [src]="publication.files[0].url" [alt]="publication.title">
+                        </div>
+                        <div class="col-md-10 col-12 d-flex justify-content-center align-items-center p-0">
+                            <div class="row w-100 p-0">
+                                <div class="col-md-7 col-8 d-flex justify-content-start align-items-center ">
+                                    <h4 class="text-truncate fs-4 mh-100 fw-semibold">{{publication.title}} x {{this.buys[this.publication.id_fixed]}} </h4>
+                                </div>
+                                <div class="col-md-5 col-4 d-flex justify-content-end align-items-center">
+                                    <p class="fs-5">Total: <span class="text-success">${{publication.price * this.buys[this.publication.id_fixed]}}</span></p>
+                                </div>
+                                <div class="col-12 d-flex justify-content-md-end justify-content-center ">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex justify-content-between align-items-center" style="max-height: 2.5rem">
+                                            <input
+                                                    [formControlName]="publication.id_fixed"
+                                                    (change)="updateStock($event, publication.id_fixed)"
+                                                    [defaultValue]="this.buys[this.publication.id_fixed]"
+                                                    type="number"
+                                                    min="1"
+                                                    [max]="publication.current_stock"
+                                                    style="width: 40px;height: 20px"
+                                            />
+                                        </div>
+                                        <button (click)="deleteStock($event, publication.id_fixed)" class="p-0 bg-transparent border-0">
+                                        <span class="material-symbols-outlined" style="font-size: 2.5rem">
+                                            delete
+                                        </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-end">
+                    <p class="pe-4 fs-4">Monto total de compra: {{total}}</p>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn me-1" [routerLink]="['user','home']">Seguir navegando</button>
+                        <button (click)="handleBuy()" type="button" class="btn">Finalizar compra</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</router-outlet>

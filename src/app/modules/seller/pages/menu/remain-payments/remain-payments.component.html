@@ -1,0 +1,22 @@
+<div class="container">
+    <h1 class="d-flex justify-content-center align-items-center fw-bold">Tus Compras</h1>
+    <div class="row">
+        <div *ngFor="let sale of sales" class="col-12 d-flex justify-content-center mb-2">
+            <button
+                    [routerLink]="['/seller/menu/', {outlets: {'seller-menu': ['detail', sale.id_sale]}}]"
+                    class="row w-100" style="background-color: transparent; border-radius: 16px; border: 1px solid var(--subaster-main-80)"
+            >
+                <h2 class="col-12 d-flex justify-content-start">{{sale.buyer.first_name}} {{sale.buyer?.last_name}}</h2>
+                <p class="col-9 d-flex justify-content-start">
+                    N° pedido: {{sale.id_sale}}
+                </p>
+                <p class="col-3">
+                    Estado:
+                    <span *ngIf="sale.sale_state?.content_state === 'espera'" style="color: #adad3f">En espera</span>
+                    <span *ngIf="sale.sale_state?.content_state === 'completado'" style="color: var(--subaster-main)">Completado</span>
+                    <span *ngIf="sale.sale_state?.content_state === 'rechazado'" style="color: darkred">Rechazado</span>
+                </p>
+            </button>
+        </div>
+    </div>
+</div>

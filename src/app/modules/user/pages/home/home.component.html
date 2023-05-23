@@ -1,0 +1,127 @@
+<body class="container">
+  <div class="row">
+    <div class="col-12">
+      <!-- carrousel -->
+      <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="false">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../../../../../assets/imgcarrusel1.png" class="d-block w-100" height="450" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../../../../../assets/imgcarrusel2.png" class="d-block w-100" height="450" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../../../../../assets/imgcarrusel3.png" class="d-block w-100" height="450" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="row mt-5 contenedor-blanco">
+        <div class="col-12 my-3">
+          <h2>Más Recientes</h2>
+        </div>
+        <div class="col-12 big">
+          <carousel style="z-index: 1" [height]="getheight()" class="row carousel" [cellsToShow]=3>
+            <div class="carousel-cell" *ngFor="let product of latest" >
+              <button class="card" (click)="setId(product.id_fixed)" >
+                <img class="card-img-top" src="{{product.files[0].url}}" alt="Card image cap">
+                <h5 class="card-title fs-4 fw-semibold line-clamp-2">{{product.title}}</h5>
+                <div class="card-body">
+                  <!-- <p class="line-clamp-3">{{product.description}} </p> -->
+                  <p style="color: var(--subaster-main-80)">CLP${{product.price}} </p>
+                </div>
+              </button>
+            </div>
+          </carousel>
+        </div>
+        <div class="col-12 small">
+          <carousel style="z-index: 1" [height]="getheight()" class="row carousel" [cellsToShow]=2>
+            <div class="carousel-cell" *ngFor="let product of latest" >
+              <button class="card" (click)="setId(product.id_fixed)" >
+                <img class="card-img-top" src="{{product.files[0].url}}" alt="Card image cap">
+                <h5 class="card-title fs-4 fw-semibold line-clamp-2">{{product.title}}</h5>
+                <div class="card-body">
+                  <p class="line-clamp-3">{{product.description}} </p>
+                  <p style="color: var(--subaster-main-80)">CLP${{product.price}} </p>
+                </div>
+              </button>
+            </div>
+          </carousel>
+        </div>
+      </div>
+      <div class="row mt-5 contenedor-blanco">
+        <div class="col-12 my-3">
+          <h2>Ventas Destacadas</h2>
+        </div>
+        <div class="col-12 big">
+          <carousel style="z-index: 1" [height]="getheight()" class="row carousel" [cellsToShow]=3>
+            <div class="carousel-cell col-12" *ngFor="let product of mostCommented" >
+              <button class="card" (click)="setId(product.id_fixed)" >
+                <img class="card-img-top" src="{{product.files[0].url}}" alt="Card image cap">
+                <h5 class="card-title fs-4 fw-semibold line-clamp-2">{{product.title}}</h5>
+                <div class="card-body">
+                  <!-- <p class="line-clamp-3">{{product.description}} </p> -->
+                  <p style="color: var(--subaster-main-80)">CLP${{product.price}} </p>
+                </div>
+              </button>
+            </div>
+          </carousel>
+        </div>
+        <div class="col-12 small">
+          <carousel style="z-index: 1" [height]="getheight()" class="row carousel" [cellsToShow]=2>
+            <div class="carousel-cell" *ngFor="let product of mostCommented" >
+              <button class="card" (click)="setId(product.id_fixed)" >
+                <img class="card-img-top" src="{{product.files[0].url}}" alt="Card image cap">
+                <h5 class="card-title fs-4 fw-semibold line-clamp-2">{{product.title}}</h5>
+                <div class="card-body">
+                  <p class="line-clamp-3">{{product.description}} </p>
+                  <p style="color: var(--subaster-main-80)">CLP${{product.price}} </p>
+                </div>
+              </button>
+            </div>
+          </carousel>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="container-stats pt-5">
+        <button id="usuarios">
+            <span class="material-symbols-outlined">
+              group
+            </span>
+          <div class="texto-botones">
+            Usuarios Registrados
+            <div class="contador-usuarios">
+              {{totalUsers > 999999? '+999.999':totalUsers}}
+            </div>
+          </div>
+        </button>
+        <button id="reciclado">
+              <span class="material-symbols-outlined">
+                recycling
+                </span>
+          <div class="texto-botones">
+            Contenido Reciclado
+            <div class="contador-reciclado">
+              {{recycled > 999999? '+999.999':recycled}} KG
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>

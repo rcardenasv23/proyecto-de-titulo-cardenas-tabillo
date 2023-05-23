@@ -1,0 +1,741 @@
+/*--------------------------------------------------*/
+/*Extensions*/
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+/*--------------------------------------------------*/
+
+/*Country Infomation*/
+
+CREATE TABLE region(
+    id_region VARCHAR(2) PRIMARY KEY,
+    region VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE commune(
+    id_commune VARCHAR(5),
+    id_region VARCHAR(2),
+    commune VARCHAR(100) NOT NULL,
+    PRIMARY KEY(id_commune, id_region),
+    FOREIGN KEY(id_region) REFERENCES region(id_region)
+);
+
+/*Regiones*/
+
+INSERT INTO region(region, id_region) VALUES ('Tarapacá', '01');
+INSERT INTO region(region, id_region) VALUES ('Antofagasta', '02');
+INSERT INTO region(region, id_region) VALUES ('Atacama', '03');
+INSERT INTO region(region, id_region) VALUES ('Coquimbo', '04');
+INSERT INTO region(region, id_region) VALUES ('Valparaíso', '05');
+INSERT INTO region(region, id_region) VALUES ('Región del Libertador Gral. Bernardo O’Higgins', '06');
+INSERT INTO region(region, id_region) VALUES ('Región del Maule', '07');
+INSERT INTO region(region, id_region) VALUES ('Región del Biobío', '08');
+INSERT INTO region(region, id_region) VALUES ('Región de la Araucanía', '09');
+INSERT INTO region(region, id_region) VALUES ('Región de Los Lagos', '10');
+INSERT INTO region(region, id_region) VALUES ('Región Aisén del Gral. Carlos Ibáñez del Campo', '11');
+INSERT INTO region(region, id_region) VALUES ('Región de Magallanes y de la Antártica Chilena', '12');
+INSERT INTO region(region, id_region) VALUES ('Región Metropolitana de Santiago', '13');
+INSERT INTO region(region, id_region) VALUES ('Región de Los Ríos', '14');
+INSERT INTO region(region, id_region) VALUES ('Arica y Parinacota', '15');
+
+/*Comunas */
+
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Antofagasta', '02101', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Mejillones', '02102', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Sierra Gorda', '02103', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Taltal', '02104', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Calama', '02201', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ollagüe', '02202', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Copiapó', '03101', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Caldera', '03102', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Tierra Amarilla', '03103', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chañaral', '03201', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Diego de Almagro', '03202', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Vallenar', '03301', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Alto del Carmen', '03302', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Huasco', '03304', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Serena', '04101', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Coquimbo', '04102', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Andacollo', '04103', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Higuera', '04104', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Paiguano', '04105', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Vicuña', '04106', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Illapel', '04201', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Valparaíso', '05101', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Casablanca', '05102', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Concón', '05103', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Juan Fernández', '05104', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Puchuncaví', '05105', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quintero', '05107', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Castro', '10201', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ancud', '10202', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chonchi', '10203', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Curaco de Vélez', '10204', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Dalcahue', '10205', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Puqueldón', '10206', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Queilén', '10207', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quellón', '10208', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quemchi', '10209', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quinchao', '10210', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Osorno', '10301', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Puerto Octay', '10302', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Purranque', '10303', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Puyehue', '10304', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Río Negro', '10305', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Peñalolén', '13122', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Viña del Mar', '05109', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Isla de Pascua', '05201', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Los Andes', '05301', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Calle Larga', '05302', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Rinconada', '05303', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Esteban', '05304', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Rancagua', '06101', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Codegua', '06102', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Coinco', '06103', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Coltauco', '06104', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Doñihue', '06105', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Graneros', '06106', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Las Cabras', '06107', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Machalí', '06108', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Malloa', '06109', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Mostazal', '06110', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Olivar', '06111', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Peumo', '06112', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pichidegua', '06113', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quinta de Tilcoco', '06114', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Rengo', '06115', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Requínoa', '06116', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Vicente', '06117', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Puerto Montt', '10101', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Calbuco', '10102', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cochamó', '10103', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Fresia', '10104', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Frutillar', '10105', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Los Muermos', '10106', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Llanquihue', '10107', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Maullín', '10108', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Puerto Varas', '10109', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pichilemu', '06201', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Estrella', '06202', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Litueche', '06203', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Marchihue', '06204', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Navidad', '06205', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Paredones', '06206', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Iquique', '01101', '01');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Pedro de Atacama', '02203', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Bulnes', '08402', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Temuco', '09101', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chaitén', '10401', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Futaleufú', '10402', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Hualaihué', '10403', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pedro Aguirre Cerda', '13121', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Providencia', '13123', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pudahuel', '13124', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quilicura', '13125', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quinta Normal', '13126', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Recoleta', '13127', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Renca', '13128', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Joaquín', '13129', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Miguel', '13130', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Ramón', '13131', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Vitacura', '13132', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Puente Alto', '13201', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pirque', '13202', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San José de Maipo', '13203', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Colina', '13301', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lampa', '13302', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Tiltil', '13303', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Bernardo', '13401', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Buin', '13402', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Calera de Tango', '13403', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Paine', '13404', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Melipilla', '13501', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Alhué', '13502', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Curacaví', '13503', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('María Pinto', '13504', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Pedro', '13505', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Talagante', '13601', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('El Monte', '13602', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Isla de Maipo', '13603', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Padre Hurtado', '13604', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Peñaflor', '13605', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Fernando', '06301', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chépica', '06302', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chimbarongo', '06303', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lolol', '06304', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Nancagua', '06305', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Palmilla', '06306', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Peralillo', '06307', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Placilla', '06308', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pumanque', '06309', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Talca', '07101', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Constitución', '07102', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Curepto', '07103', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Empedrado', '07104', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Maule', '07105', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pozo Almonte', '01401', '01');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Colchane', '01403', '01');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Camiña', '01402', '01');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Huara', '01404', '01');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pica', '01405', '01');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Valdivia', '14101', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Corral', '14102', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Los Lagos', '14104', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lanco', '14103', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Máfil', '14105', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Mariquina', '14106', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Paillaco', '14107', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Panguipulli', '14108', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Unión', '14201', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Futrono', '14202', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lago Ranco', '14203', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Río Bueno', '14204', '14');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Arica', '15101', '15');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Camarones', '15102', '15');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Putre', '15201', '15');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('General Lagos', '15202', '15');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pelarco', '07106', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pencahue', '07107', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Río Claro', '07108', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Clemente', '07109', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Rafael', '07110', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cauquenes', '07201', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chanco', '07202', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pelluhue', '07203', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Curicó', '07301', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Hualañé', '07302', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Licantén', '07303', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Molina', '07304', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Rauco', '07305', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Romeral', '07306', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Sagrada Familia', '07307', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Teno', '07308', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Vichuquén', '07309', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Linares', '07401', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Colbún', '07402', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Longaví', '07403', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Parral', '07404', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Retiro', '07405', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Javier', '07406', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Concepción', '08101', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Coronel', '08102', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chiguayante', '08103', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Florida', '08104', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Hualqui', '08105', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lota', '08106', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Penco', '08107', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Pedro de la Paz', '08108', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Santa Juana', '08109', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Talcahuano', '08110', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Tomé', '08111', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lebu', '08201', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Arauco', '08202', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cañete', '08203', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Contulmo', '08204', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Curanilahue', '08205', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Los Álamos', '08206', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Tirúa', '08207', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Carahue', '09102', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cunco', '09103', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Curarrehue', '09104', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Freire', '09105', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Galvarino', '09106', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Gorbea', '09107', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lautaro', '09108', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Loncoche', '09109', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Melipeuco', '09110', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Nueva Imperial', '09111', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Padre las Casas', '09112', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Perquenco', '09113', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pitrufquén', '09114', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pucón', '09115', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Saavedra', '09116', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Tocopilla', '02301', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('María Elena', '02302', '02');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Freirina', '03303', '03');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Canela', '04202', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Los Vilos', '04203', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Salamanca', '04204', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ovalle', '04301', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Combarbalá', '04302', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Monte Patria', '04303', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Punitaqui', '04304', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Río Hurtado', '04305', '04');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Ligua', '05401', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cabildo', '05402', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Papudo', '05403', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Petorca', '05404', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Zapallar', '05405', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quillota', '05501', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Calera', '05502', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Hijuelas', '05503', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Cruz', '05504', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Nogales', '05506', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Antonio', '05601', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Algarrobo', '05602', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cartagena', '05603', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('El Quisco', '05604', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('El Tabo', '05605', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Santo Domingo', '05606', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Felipe', '05701', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Catemu', '05702', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Llaillay', '05703', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Panquehue', '05704', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Putaendo', '05705', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Santa María', '05706', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Santa Cruz', '06310', '06');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Villa Alegre', '07407', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Yerbas Buenas', '07408', '07');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Los Ángeles', '08301', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Antuco', '08302', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cabrero', '08303', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Laja', '08304', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Mulchén', '08305', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Nacimiento', '08306', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Negrete', '08307', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quilaco', '08308', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quilleco', '08309', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Rosendo', '08310', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Santa Bárbara', '08311', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Tucapel', '08312', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Yumbel', '08313', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chillán', '08401', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cobquecura', '08403', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Coelemu', '08404', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Coihueco', '08405', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chillán Viejo', '08406', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('El Carmen', '08407', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ninhue', '08408', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ñiquén', '08409', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pemuco', '08410', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Pinto', '08411', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Portezuelo', '08412', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quillón', '08413', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quirihue', '08414', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ránquil', '08415', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Carlos', '08416', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Fabián', '08417', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Ignacio', '08418', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Nicolás', '08419', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Treguaco', '08420', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Yungay', '08421', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Teodoro Schmidt', '09117', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Toltén', '09118', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Vilcún', '09119', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Villarrica', '09120', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Angol', '09201', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Collipulli', '09202', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Curacautín', '09203', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ercilla', '09204', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lonquimay', '09205', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Los Sauces', '09206', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lumaco', '09207', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Purén', '09208', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Renaico', '09209', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Traiguén', '09210', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Victoria', '09211', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Juan de la Costa', '10306', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Pablo', '10307', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Palena', '10404', '10');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Coihaique', '11101', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lago Verde', '11102', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Aisén', '11201', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cisnes', '11202', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Guaitecas', '11203', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cochrane', '11301', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('O’Higgins', '11302', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Limache', '05802', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Villa Alemana', '05804', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Hualpén', '08112', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Alto Biobío', '08314', '08');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cholchol', '09121', '09');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Tortel', '11303', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Chile Chico', '11401', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Río Ibáñez', '11402', '11');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Punta Arenas', '12101', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Laguna Blanca', '12102', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Río Verde', '12103', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('San Gregorio', '12104', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cabo de Hornos (Ex Navarino)', '12201', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Antártica', '12202', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Porvenir', '12301', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Primavera', '12302', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Timaukel', '12303', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Natales', '12401', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Torres del Paine', '12402', '12');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Santiago', '13101', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cerrillos', '13102', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Cerro Navia', '13103', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Conchalí', '13104', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('El Bosque', '13105', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Estación Central', '13106', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Huechuraba', '13107', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Independencia', '13108', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Cisterna', '13109', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Florida', '13110', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Granja', '13111', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Pintana', '13112', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('La Reina', '13113', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Las Condes', '13114', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lo Barnechea', '13115', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lo Espejo', '13116', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Lo Prado', '13117', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Macul', '13118', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Maipú', '13119', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Ñuñoa', '13120', '13');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Alto Hospicio', '01107', '01');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Quilpué', '05801', '05');
+INSERT INTO commune(commune,id_commune,id_region)VALUES ('Olmué', '05803', '05');
+
+
+/*--------------------------------------------------*/
+/*User Tables*/
+CREATE TABLE standar_user( 
+    id_user uuid DEFAULT uuid_generate_v4 () ,
+    user_name VARCHAR(100),
+    email VARCHAR(200) UNIQUE NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    is_admin BOOLEAN DEFAULT false,
+    last_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    user_password VARCHAR(100) NOT NULL,
+    seller BOOLEAN NOT NULL,
+    created_at DATE NOT NULL,
+    PRIMARY KEY (id_user)
+);
+
+INSERT INTO standar_user(
+	email,
+	first_name,
+	is_admin,
+	last_name,
+	phone,
+	user_password,
+	seller,
+	created_at
+)VALUES('subasterbot@gmail.com', 'Admin',true,'Subaster', '995052258',crypt('admin', gen_salt('bf',10)),false, NOW());
+
+CREATE TABLE user_address(
+    id_address uuid DEFAULT uuid_generate_v4 (),
+    id_user uuid,
+    id_region VARCHAR(2),
+    id_commune VARCHAR(5), 
+    address VARCHAR(100) NOT NULL,
+    lat DOUBLE PRECISION NOT NULL,
+    lng DOUBLE PRECISION NOT NULL,
+    description VARCHAR(100),
+    PRIMARY KEY (id_address),
+    CONSTRAINT fk_user
+        FOREIGN KEY (id_user) 
+	        REFERENCES standar_user(id_user),
+    CONSTRAINT fk_region_commune
+        FOREIGN KEY (id_region, id_commune) 
+            REFERENCES commune(id_region, id_commune)
+);
+
+CREATE TABLE user_file(
+    id_file uuid DEFAULT uuid_generate_v4 (),
+    id_user uuid,
+    url TEXT NOT NULL,
+    extensions TEXT[],
+    width INT,
+    height INT,
+    PRIMARY KEY (id_file),
+    CONSTRAINT fk_user
+        FOREIGN KEY (id_user) 
+	        REFERENCES standar_user(id_user)
+);
+/*--------------------------------------------------*/
+
+/*Attributes Tables */
+
+CREATE TABLE content_state (
+    id_state uuid DEFAULT uuid_generate_v4 (),
+    content_state VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id_state)
+);
+
+INSERT INTO content_state(content_state) VALUES('disponible');
+INSERT INTO content_state(content_state) VALUES('inactiva');
+INSERT INTO content_state(content_state) VALUES('espera');
+INSERT INTO content_state(content_state) VALUES('rechazado');
+INSERT INTO content_state(content_state) VALUES('completado');
+
+CREATE TABLE publication_product_state (
+    id_pubs uuid DEFAULT uuid_generate_v4 (),
+    product_state VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id_pubs)
+);
+
+INSERT INTO publication_product_state(product_state) VALUES('Usado');
+INSERT INTO publication_product_state(product_state) VALUES('Usado-Como Nuevo');
+INSERT INTO publication_product_state(product_state) VALUES('Nuevo-Abierto');
+INSERT INTO publication_product_state(product_state) VALUES('Residuo');
+
+
+CREATE TABLE publication_category (
+    id_pubc uuid DEFAULT uuid_generate_v4 (),
+    publication_category VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id_pubc)
+);
+
+INSERT INTO publication_category(publication_category) VALUES('Aceros y elementos metálicos');
+INSERT INTO publication_category(publication_category) VALUES('Electricidad');
+INSERT INTO publication_category(publication_category) VALUES('Artefactos sanitarios y gasfitería');
+INSERT INTO publication_category(publication_category) VALUES('Revestimientos y estucos');
+INSERT INTO publication_category(publication_category) VALUES('Maderas y muebles');
+INSERT INTO publication_category(publication_category) VALUES('Equipos y herramientas');
+INSERT INTO publication_category(publication_category) VALUES('Pinturas y accesorios');
+INSERT INTO publication_category(publication_category) VALUES('Cerámicos y adhesivos');
+INSERT INTO publication_category(publication_category) VALUES('Puertas y ventanas');
+INSERT INTO publication_category(publication_category) VALUES('Residuos peligrosos');
+INSERT INTO publication_category(publication_category) VALUES('Seguridad');
+INSERT INTO publication_category(publication_category) VALUES('Polímeros,gomas y neumáticos');
+INSERT INTO publication_category(publication_category) VALUES('Bloques de construcción');
+
+
+CREATE TABLE publication_unity (
+    id_unity uuid DEFAULT uuid_generate_v4 (),
+    publication_unity VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id_unity)
+);
+
+INSERT INTO publication_unity(publication_unity) VALUES('Sacos');
+INSERT INTO publication_unity(publication_unity) VALUES('UN');
+INSERT INTO publication_unity(publication_unity) VALUES('CM');
+INSERT INTO publication_unity(publication_unity) VALUES('M');
+INSERT INTO publication_unity(publication_unity) VALUES('ML');
+INSERT INTO publication_unity(publication_unity) VALUES('M2');
+INSERT INTO publication_unity(publication_unity) VALUES('M3');
+INSERT INTO publication_unity(publication_unity) VALUES('Cajas');
+INSERT INTO publication_unity(publication_unity) VALUES('Tinetas');
+INSERT INTO publication_unity(publication_unity) VALUES('Pallet');
+
+/*--------------------------------------------------*/
+
+/*Seller Table*/
+
+CREATE TABLE seller(
+    id_seller uuid DEFAULT uuid_generate_v4 (),
+    id_user uuid NOT NULL UNIQUE,
+    email VARCHAR(200) NOT NULL,
+    rut VARCHAR(50) NOT NULL UNIQUE,
+    store_name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    created_at DATE NOT NULL,
+    bank_name VARCHAR(200) NOT NULL,
+    bank_account_name VARCHAR(200) NOT NULL,
+    bank_account_type VARCHAR(100) NOT NULL,
+    bank_account_address VARCHAR(100) NOT NULL,
+    bank_account_email VARCHAR(200) NOT NULL,
+    bank_account_rut VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id_seller),
+    CONSTRAINT fk_seller_user
+        FOREIGN KEY (id_user) 
+	        REFERENCES standar_user(id_user)
+);
+
+CREATE TABLE seller_file(
+    id_file uuid DEFAULT uuid_generate_v4 (),
+    id_seller uuid,
+    url TEXT NOT NULL,
+    extensions TEXT[],
+    width INT,
+    height INT,
+    PRIMARY KEY (id_file),
+    CONSTRAINT fk_seller
+        FOREIGN KEY (id_seller) 
+	        REFERENCES seller(id_seller)
+);
+/*--------------------------------------------------*/
+
+/*Publication Table*/
+
+CREATE TABLE fixed (
+    id_fixed uuid DEFAULT uuid_generate_v4(),
+    id_seller uuid NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description VARCHAR(250) NOT NULL,
+    dimentions TEXT NOT NULL,
+    weight REAL NOT NULL,
+    price INT NOT NULL,
+    stock INT NOT NULL,
+    current_stock INT NOT NULL,
+    category uuid ,
+    product_state uuid ,
+    unity uuid,
+    content_state uuid,
+	closed_by_admin BOOLEAN DEFAULT false,
+    created_at DATE NOT NULL,
+    PRIMARY KEY (id_fixed),
+    CONSTRAINT fk_fixed_seller
+        FOREIGN KEY (id_seller) 
+	        REFERENCES seller(id_seller),
+    CONSTRAINT fk_fixed_category
+        FOREIGN KEY (category) 
+	        REFERENCES publication_category(id_pubc),
+    CONSTRAINT fk_fixed_content_state
+        FOREIGN KEY (content_state) 
+	        REFERENCES content_state(id_state),
+    CONSTRAINT fk_fixed_product_state
+        FOREIGN KEY (product_state) 
+	        REFERENCES publication_product_state(id_pubs),
+    CONSTRAINT fk_fixed_unity
+        FOREIGN KEY (unity) 
+	        REFERENCES publication_unity(id_unity)
+);
+
+CREATE TABLE fixed_file(
+    id_file uuid DEFAULT uuid_generate_v4(),
+    id_fixed uuid,
+    url TEXT NOT NULL,
+    extensions TEXT[],
+    width INT,
+    height INT,
+    PRIMARY KEY (id_file),
+    CONSTRAINT fk_fixed
+        FOREIGN KEY (id_fixed) 
+	        REFERENCES fixed(id_fixed)
+);
+
+CREATE TABLE fixed_address(
+    id_address uuid DEFAULT uuid_generate_v4(),
+    id_fixed uuid,
+    id_region VARCHAR(2),
+    id_commune VARCHAR(5), 
+    address VARCHAR(100) NOT NULL,
+    lat DOUBLE PRECISION NOT NULL,
+    lng DOUBLE PRECISION NOT NULL,
+    description VARCHAR(100),
+    PRIMARY KEY (id_address),
+    CONSTRAINT fk_fixed
+        FOREIGN KEY (id_fixed) 
+	        REFERENCES fixed(id_fixed),
+    CONSTRAINT fk_region_commune
+        FOREIGN KEY (id_region, id_commune) 
+            REFERENCES commune(id_region, id_commune)
+);
+
+CREATE TABLE "comment"(
+    id_comment uuid DEFAULT uuid_generate_v4(),
+    id_fixed uuid NOT NULL,
+    id_user uuid NOT NULL,
+    "comment" TEXT NOT NULL,
+    PRIMARY KEY (id_comment),
+    CONSTRAINT fk_user
+        FOREIGN KEY (id_user)
+            REFERENCES standar_user(id_user),
+    CONSTRAINT fk_comment_fixed
+        FOREIGN KEY (id_fixed)
+            REFERENCES fixed(id_fixed)
+);
+/*--------------------------------------------------*/
+
+/*Sale Table*/
+CREATE TABLE sale(
+    id_sale uuid DEFAULT uuid_generate_v4(), 
+    id_user uuid NOT NULL,
+    id_seller uuid NOT NULL,
+    sale_state uuid NOT NULL,
+    fixeds JSON NOT NULL,
+    total INTEGER NOT NULL,
+    description TEXT,
+    date_pickup DATE,
+    created_at DATE NOT NULL,
+    updated_at DATE NOT NULL,
+    PRIMARY KEY (id_sale),
+    CONSTRAINT fk_sale_user
+        FOREIGN KEY (id_user) 
+	        REFERENCES standar_user(id_user),
+    CONSTRAINT fk_sale_content_state
+        FOREIGN KEY (sale_state) 
+	        REFERENCES content_state(id_state),
+    CONSTRAINT fk_sale_seller
+        FOREIGN KEY (id_seller) 
+	        REFERENCES seller(id_seller)
+);
+
+/*Sale File Table*/
+CREATE TABLE sale_file(
+    id_file uuid DEFAULT uuid_generate_v4(),
+    id_sale uuid NOT NULL,
+    "name" TEXT NOT NULL,
+    url TEXT NOT NULL,
+    extensions TEXT[],
+    width INT,
+    height INT,
+    PRIMARY KEY (id_file),
+    CONSTRAINT fk_sale
+        FOREIGN KEY (id_sale) 
+	        REFERENCES sale(id_sale)
+);
+
+/*--------------------------------------------------*/
+
+/*Stock Table*/
+
+CREATE TABLE stock(
+    id_stock uuid DEFAULT uuid_generate_v4(), 
+    id_sale uuid,
+    id_fixed uuid NOT NULL,
+    stock_state uuid NOT NULL,
+    PRIMARY KEY (id_stock),
+    CONSTRAINT fk_stock_fixed
+        FOREIGN KEY (id_fixed) 
+	        REFERENCES fixed(id_fixed),
+    CONSTRAINT fk_stock_content_state
+        FOREIGN KEY (stock_state) 
+	        REFERENCES content_state(id_state),
+    CONSTRAINT fk_stock_sale
+        FOREIGN KEY (id_sale) 
+	        REFERENCES sale(id_sale)
+);
+/*--------------------------------------------------*/
+
+/*Triggers and Functions*/
+
+/*Stock Creation for Publication*/
+CREATE OR REPLACE FUNCTION create_stock() RETURNS TRIGGER AS $create_stock$
+    DECLARE 
+        stock integer;
+    BEGIN 
+        IF NEW.id_fixed IS NULL THEN
+            RAISE EXCEPTION 'id_fixed cannot be null';
+        END IF;
+        IF NEW.stock IS NULL THEN
+            RAISE EXCEPTION 'stock cannot be null';
+        END IF;
+        stock = NEW.stock;
+        FOR i IN 1..stock LOOP 
+            INSERT INTO stock(id_stock, id_fixed, stock_state) 
+                VALUES(
+                    uuid_generate_v4 (),
+                    NEW.id_fixed,
+                    (SELECT id_state FROM content_state WHERE content_state LIKE 'disponible' )
+                );
+        END LOOP;
+        RETURN NEW;
+    END;
+$create_stock$ LANGUAGE plpgsql;
+CREATE OR REPLACE TRIGGER publication_stock_creation AFTER INSERT ON fixed
+    FOR EACH ROW EXECUTE FUNCTION create_stock();
+	
+/*--------------------------------------------------*/
+	
+/*Update State of Publication After Stock is 0*/
+
+CREATE OR REPLACE FUNCTION update_state() RETURNS TRIGGER AS $update_state$
+	DECLARE 
+        id_inactiva uuid;
+    BEGIN 
+		id_inactiva = (SELECT id_state FROM content_state WHERE content_state LIKE 'inactiva');
+        IF NEW.current_stock = 0 AND NEW != OLD THEN
+            UPDATE fixed SET content_state = id_inactiva WHERE id_fixed = NEW.id_fixed;
+        END IF;
+        RETURN NEW;
+    END;
+$update_state$ LANGUAGE plpgsql;
+CREATE OR REPLACE TRIGGER publication_state_update AFTER UPDATE ON fixed
+    FOR EACH ROW EXECUTE FUNCTION update_state();
+/*--------------------------------------------------*/

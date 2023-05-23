@@ -1,0 +1,8 @@
+.item{
+  border:1px solid var(--subaster-main-80)
+}
+.item-name{
+  @media (max-width: 767px) {
+    border-bottom: 1px solid var(--subaster-main-80);
+  }
+}

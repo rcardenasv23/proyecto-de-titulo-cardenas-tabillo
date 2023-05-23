@@ -1,0 +1,18 @@
+.form-label{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.btn{
+  background: var(--subaster-main-80);
+}
+.error{
+  color:red
+}
+.start-label{
+  margin-inline-start: 10px;
+  font-size: medium;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}

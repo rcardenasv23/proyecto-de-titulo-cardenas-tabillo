@@ -1,0 +1,51 @@
+<div class="content">
+    <h1 class="d-flex justify-content-center align-items-center fw-bold">Actualizar Dirección</h1>
+    <form class="d-flex justify-content-center row gy-4 mt-5" (ngSubmit)="handleSubmit()"  [formGroup]="changeAddressForm">
+        <div class="col-12 col-md-6 ">
+            <label class="form-label d-flex justify-content-center">Región(*)</label>
+            <select
+                    (change)="buscar_ciudad($event)"
+                    [attr.disabled]="loading?true:null"
+                    type="text"
+                    [class]="(changeAddressForm.controls['region'].errors && (changeAddressForm.controls['region'].dirty || changeAddressForm.controls['region'].touched)) ? 'border-danger form-select form-control form-control-lg':'form-select form-control form-control-lg'"
+                    formControlName="region"
+                    id="region"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('region')"
+                    [matTooltipDisabled]="!(changeAddressForm.controls['region'].errors && (changeAddressForm.controls['region'].dirty || changeAddressForm.controls['region'].touched))"
+            ></select>
+        </div>
+        <div class="col-12 col-md-6">
+            <label class="form-label d-flex justify-content-center">Comuna(*)</label>
+            <select
+                    (change)="enableAddress($event)"
+                    [attr.disabled]="loading?true:null"
+                    type="text"
+                    [class]="(changeAddressForm.controls['commune'].errors && (changeAddressForm.controls['commune'].dirty || changeAddressForm.controls['commune'].touched)) ? 'border-danger form-select form-control form-control-lg':'form-select form-control form-control-lg'"
+                    formControlName="commune"
+                    id="comuna"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('commune')"
+                    [matTooltipDisabled]="!(changeAddressForm.controls['commune'].errors && (changeAddressForm.controls['commune'].dirty || changeAddressForm.controls['commune'].touched))"
+            ></select>
+        </div>
+        <div class="col-12 col-md-10">
+            <label class="d-flex justify-content-center">Ingrese su direccion (*)</label>
+            <input
+                    [attr.disabled]="loading?true:null"
+                    placeholder={{this.user?.address?.address}}
+                    id="direccion"
+                    (change)="direccionShow($event)"
+                    type="text"
+                    [class]="(changeAddressForm.controls['address'].errors && (changeAddressForm.controls['address'].dirty || changeAddressForm.controls['address'].touched)) ? 'd-flex justify-content-center border-danger form-control':'d-flex justify-content-center form-control'"
+                    formControlName="address"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('address')"
+                    [matTooltipDisabled]="!(changeAddressForm.controls['address'].errors && (changeAddressForm.controls['address'].dirty || changeAddressForm.controls['address'].touched))"
+            />
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <button class="btn" type="submit" [disabled]="changeAddressForm.invalid">Guardar cambios</button>
+        </div>
+    </form>
+</div>

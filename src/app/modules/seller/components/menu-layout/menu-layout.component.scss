@@ -1,0 +1,10 @@
+.layout-button{
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 100%;
+  background: white;
+  color: var(--subaster-main);
+}
+.layout-button:hover{
+  color: var(--subaster-main-40);
+}

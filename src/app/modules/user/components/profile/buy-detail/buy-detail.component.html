@@ -1,0 +1,95 @@
+<div class="container-fluid m-2">
+    <h1 class="d-flex justify-content-center align-items-center fw-bold">Tienda: {{sale?.store?.store_name}}</h1>
+    <div class="d-flex justify-content-center align-items-center gx-2" >
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <h4 class="fw-light me-2">Fecha de compra: {{sale?.created_at}}</h4>
+            <h4 class="fw-light me-2">Actualizado por última vez: {{sale?.updated_at}}</h4>
+            <h4 class="fw-light">
+                Estado:
+                <span *ngIf="sale.sale_state.content_state === 'espera'" style="color: #adad3f">En espera</span>
+                <span *ngIf="sale.sale_state.content_state === 'completado'" style="color: var(--subaster-main)">Completado</span>
+                <span *ngIf="sale.sale_state.content_state === 'rechazado'" style="color: darkred">Rechazado</span>
+            </h4>
+        </div>
+    </div>
+    <div class="row gy-4">
+        <div class="col-12 d-flex justify-content-center my-2 ">
+            <mat-progress-bar class="w-75" color="accent" *ngIf="loading? true:null"  mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div class="col-12">
+            <h2 style="position:relative; left: 5px">Productos comprados</h2>
+            <ul class="row w-100" style="max-height: 50vh;overflow-y: auto">
+                <li
+                        *ngFor="let publication of sale?.publications"
+                        class="d-flex flex-row justify-content-between col-12 card mb-3 content w-100"
+                        style="cursor: pointer"
+                        routerLink="/user/publication/{{publication.id_fixed}}"
+                        matTooltip="Ver publicación"
+                        matTooltipClass="bg-success"
+                >
+                    <div class="col-md-2 col-4 p-1">
+                        <img [src]="publication.files[0].url" [alt]="publication.title" style="max-width: 100%">
+                    </div>
+                    <div class="col-md-10 col-8 d-flex flex-column justify-content-start align-items-start p-2" >
+                        <h4 class="text-truncate" style="max-width: 100%">{{publication.title}}</h4>
+                        <p  class="line-clamp-2" style="max-width: 100%;">{{publication.description}}</p>
+                        <div class="d-flex justify-content-start align-items-center w-100">
+                            <p class="text-truncate flex-grow-1">Total: <span class="text-success">${{publication.price * getQuantity(publication.id_fixed)}} CLP</span></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div style="height: 1px;min-width: 100%;border: 1px solid black; background-color: black"></div>
+            <p class="d-flex justify-content-end text-truncate flex-grow-1">Total: <span class="text-success">${{sale?.total}} CLP</span></p>
+        </div>
+
+        <div class="col-12">
+            <h2>Comprobante de pago de la compra</h2>
+            <div class="row">
+                <div *ngIf="!media.name && !isClose" class="col-12">
+                    <div class="input-group">
+                        <input
+                                id="files"
+                                [disabled]="isClose"
+                                (change)="loadMedia($event)"
+                                type="file"
+                                accept="application/pdf"
+                                formControlName="media"
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+                <div *ngIf="!media.name && isClose" class="col-12">
+                    <div class="d-flex flex-column justify-content-center align-items-center border border-success" style="height: 25vh;">
+                        <span class="material-symbols-outlined" style="font-size: 100px; color: var(--subaster-main-60)">
+                            sentiment_very_dissatisfied
+                        </span>
+                        <p style="font-size: 20px; color: var(--subaster-main-60)"> No es posible añadir archivos una vez que la venta ya finalizó.</p>
+                    </div>
+                </div>
+                <div *ngIf="media.name"  class="col-12 p-4">
+                    <div class="d-flex justify-content-center align-items-center w-100" style="border: 1px solid var(--subaster-main-80); min-height: 100px">
+                        <button [attr.disabled]="loading? true:null" (click)="deletemedia()" class="p-0 bg-transparent border-0">
+                            <span class="material-symbols-outlined me-2" style="color: darkred;font-size: 40px">
+                            delete
+                        </span>
+                        </button>
+                        <p  [matTooltip]="media?.name"
+                            matTooltipClass="bg-success"
+                            class="text-truncate"
+                            style="position:relative; bottom: -5px;font-size: x-large"
+                        >
+                            {{media.name}}
+                        </p>
+                        <button *ngIf="!media.url" [attr.disabled]="loading? true:null" (click)="handleAdd()" class="p-0 bg-transparent border-0">
+                            <span class="material-symbols-outlined me-2" style="color: var(--subaster-main);font-size: 40px">
+                                upload
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

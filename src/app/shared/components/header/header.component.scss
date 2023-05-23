@@ -1,0 +1,58 @@
+a.nav-link.active{
+  display: flex;
+  align-items: end;
+  padding-left: 4px;
+  color: black;
+
+}
+
+a.nav-link{
+  display: flex;
+  align-items: end;
+  padding-left: 4px;
+  color: black;
+}
+
+a.nav-link.active:hover{
+  border-radius: 8px;
+  color: white;
+  background-color: var(--subaster-main-80)
+}
+
+a.nav-link:hover{
+  border-radius: 8px;
+  color: white;
+  background-color:var(--subaster-main-80)
+}
+
+a.dropdown-item:hover{
+  border-radius: 4px;
+  color: white;
+  background-color: var(--subaster-main-80)
+}
+
+input.form-control.me-2:focus{
+  color: var(--subaster-main-80)
+}
+
+span.navbar-toggler-icon{
+  fill: white;
+}
+
+#logoSubaster{
+  border-radius: 3rem;
+}
+
+.dropdown-toggle::after {
+  position: relative;
+  bottom: 7px;
+  left: 0;
+}
+.btn-outline-light{
+  color: black;
+  border : 1px solid var(--subaster-main-80)
+}
+.btn-outline-light:hover{
+  color: white;
+  background : var(--subaster-main-80)
+}

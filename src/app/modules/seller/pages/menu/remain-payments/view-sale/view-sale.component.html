@@ -1,0 +1,65 @@
+<div class="container-fluid m-2">
+    <h1 class="d-flex justify-content-center align-items-center fw-bold">Tienda: {{seller?.store_name}}</h1>
+    <div class="d-flex justify-content-center align-items-center gx-2" >
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <h4 class="fw-light me-2">Fecha de compra: {{sale?.created_at}}</h4>
+            <h4 class="fw-light me-2">Actualizado por última vez: {{sale?.updated_at}}</h4>
+            <h4 class="fw-light">
+                Estado:
+                <span *ngIf="sale.sale_state.content_state === 'espera'" style="color: #adad3f">En espera</span>
+                <span *ngIf="sale.sale_state.content_state === 'completado'" style="color: var(--subaster-main)">Completado</span>
+                <span *ngIf="sale.sale_state.content_state === 'rechazado'" style="color: darkred">Rechazado</span>
+            </h4>
+        </div>
+    </div>
+    <div class="row gy-4">
+        <div class="col-12 d-flex justify-content-center my-2 ">
+            <mat-progress-bar class="w-75" color="accent" *ngIf="loading? true:null"  mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div class="col-12">
+            <h2 style="position:relative; left: 5px">Productos vendidos</h2>
+            <ul class="row w-100" style="max-height: 50vh;overflow-y: auto">
+                <li
+                        *ngFor="let publication of sale?.publications"
+                        class="d-flex flex-row justify-content-between col-12 card mb-3 content w-100"
+                        style="cursor: pointer"
+                        routerLink="/user/publication/{{publication.id_fixed}}"
+                        matTooltip="Ver publicación"
+                        matTooltipClass="bg-success"
+                >
+                    <div class="col-md-2 col-4 p-1">
+                        <img [src]="publication.files[0].url" [alt]="publication.title" style="max-width: 100%">
+                    </div>
+                    <div class="col-md-10 col-8 d-flex flex-column justify-content-start align-items-start p-2" >
+                        <h4 class="text-truncate" style="max-width: 100%">{{publication.title}}</h4>
+                        <p  class="line-clamp-2" style="max-width: 100%;">{{publication.description}}</p>
+                        <div class="d-flex justify-content-start align-items-center w-100">
+                            <p class="text-truncate flex-grow-1">Total: <span class="text-success">${{publication.price * getQuantity(publication.id_fixed)}} CLP</span></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div style="height: 1px;min-width: 100%;border: 1px solid black; background-color: black"></div>
+            <p class="d-flex justify-content-end text-truncate flex-grow-1">Total: <span class="text-success">${{sale?.total}} CLP</span></p>
+        </div>
+        <div class="col-12 px-md-4">
+            <h2>Comprador</h2>
+            <div class="row py-1 px-2 border border-success rounded-3">
+                <h3 class="col-12">Nombre:<span class="text-capitalize mx-1">{{sale.buyer?.first_name}}</span> <span class="text-capitalize">{{sale.buyer?.last_name}}</span></h3>
+                <h3 class="col-12">Correo Electronico: {{sale.buyer.email}}</h3>
+                <h3 class="col-12">Teléfono: {{sale.buyer.phone}}</h3>
+                <h3 class="col-12" *ngIf="sale.sale_file?.url">Comprobante de pago: <a target="_blank" [href]="sale.sale_file?.url">{{sale.sale_file?.name}}</a></h3>
+                <h3 class="col-12" *ngIf="!sale.sale_file?.url">Sin comprobante de pago existente</h3>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <button [disabled]="isClose" data-bs-toggle="modal" data-bs-target="#completeSale" class="btn btn-success me-4">Completar Venta</button>
+            <button [disabled]="!rejectable || isClose ?true:null"  data-bs-toggle="modal" data-bs-target="#rejectSale" class="btn btn-danger">Rechazar Venta</button>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <p class="text-danger fw-light">Es posible rechazar las ventas solo despues de 5 días realizada la compra</p>
+        </div>
+        <app-complete-sale-modal  (revalidate)="revalidate()" [id_sale]="sale.id_sale"></app-complete-sale-modal>
+        <app-reject-sale-modal   (revalidate)="revalidate()" [id_sale]="sale.id_sale"></app-reject-sale-modal>
+    </div>
+</div>

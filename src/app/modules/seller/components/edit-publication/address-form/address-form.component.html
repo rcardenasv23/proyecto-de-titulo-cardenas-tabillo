@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>Dirección de la publicación</h2>
+        <form class="col-12" [formGroup]="addressPublicationForm" id="form" (ngSubmit)="handleUpdate()">
+            <div class="row gy-4">
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Región</label>
+                    <select
+                            id="region"
+                            [attr.disabled]="loading? true:null"
+                            (change)="searchCity($event)"
+                            formControlName="region"
+                            [class]="(addressPublicationForm.controls['region'].errors && (addressPublicationForm.controls['region'].dirty || addressPublicationForm.controls['region'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('region')"
+                            [matTooltipDisabled]="!(addressPublicationForm.controls['region'].errors && (addressPublicationForm.controls['region'].dirty || addressPublicationForm.controls['region'].touched))"
+                    >
+                    </select>
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Comuna</label>
+                    <select
+                            [attr.disabled]="loading? true:null"
+                            (change)="enableAddress($event)"
+                            name="commune"
+                            id="commune"
+                            [class]="(addressPublicationForm.controls['commune'].errors && (addressPublicationForm.controls['commune'].dirty || addressPublicationForm.controls['commune'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('commune')"
+                            [matTooltipDisabled]="!(addressPublicationForm.controls['commune'].errors && (addressPublicationForm.controls['commune'].dirty || addressPublicationForm.controls['commune'].touched))"
+                            formControlName="commune"
+                    >
+                    </select>
+                </div>
+                <div class="col-12 d-flex flex-column justify-content-center">
+                    <label class=" d-flex flex-column justify-content-center start-label">Dirección</label>
+                    <input
+                            [attr.disabled]="loading? true:null"
+                            id="address"
+                            (change)="showAddress($event)"
+                            formControlName="address"
+                            [class]="(addressPublicationForm.controls['address'].errors && (addressPublicationForm.controls['address'].dirty || addressPublicationForm.controls['address'].touched)) ? 'border-danger form-control form-control-md':'form-control form-control-md'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('address')"
+                            [matTooltipDisabled]="!(addressPublicationForm.controls['address'].errors && (addressPublicationForm.controls['address'].dirty || addressPublicationForm.controls['address'].touched))"
+                    />
+                </div>
+                <div *ngIf="lat !== 0 && lng !== 0" class="col-12 d-flex flex-column justify-content-center">
+                    <google-map
+                            id="google"
+                            width="100%"
+                            [center]="center"
+                            [zoom]="15"
+                            (mapClick)="moveMap($event)"
+                    >
+                        <map-marker
+                                [position]="maker"
+                        ></map-marker>
+                    </google-map>
+                    <p class="d-flex justify-content-center small">Si el marcador no esta bien posicionado, por favor haga clic en el mapa para corregirlo.</p>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="d-flex justify-content-between">
+                        <button
+                                [disabled] = "this.lat === 0 ||
+                                              this.lng === 0 ||
+                                              this.lat === this.publication?.address?.lat ||
+                                              this.lng === this.publication?.address?.lng ||
+                                              publication?.current_stock === 0 ||
+                                              publication?.closed_by_admin"
+                                class="me-2 btn btn-sm border-success action"
+                        >
+                            Guardar cambios
+                        </button>
+                        <button [disabled] = "publication?.current_stock === 0 || publication?.closed_by_admin" (click)="reset()" type="button" class="btn btn-sm border-success action"> Cancelar </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

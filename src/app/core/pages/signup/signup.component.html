@@ -1,0 +1,168 @@
+<app-toasts [msg]="msgToast"></app-toasts>
+<body class="container mt-5">
+    <form class="d-flex justify-content-center align-content-center row p-2" [formGroup]="signupcontrol" (ngSubmit)="handleSubmit()" novalidate>
+        <h2 class="d-flex justify-content-center mb-5">Registrarse</h2>
+        <div id="formulario" class="col-12">
+            <div class="row d-flex justify-content-center mx-md-2">
+                <div class="col-md-6 col-12 mb-5">
+                    <label for="nombres" class="form-label d-flex justify-content-center">Nombres (*)</label>
+                    <input
+                            [attr.disabled]="loading? true:null"
+                            type="text"
+                            [class]="(signupcontrol.controls['first_name'].errors && (signupcontrol.controls['first_name'].dirty || signupcontrol.controls['first_name'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="first_name"
+                            id="nombres"
+                            placeholder="Juan"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('first_name')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['first_name'].errors && (signupcontrol.controls['first_name'].dirty || signupcontrol.controls['first_name'].touched))"
+                    />
+                </div>
+                <div class="col-md-6 col-12 mb-5">
+                    <label for="apellidos" class="form-label d-flex justify-content-center">Apellidos (*)</label>
+                    <input
+                            [attr.disabled]="loading? true:null"
+                            type="text"
+                            [class]="(signupcontrol.controls['lastname'].errors && (signupcontrol.controls['lastname'].dirty || signupcontrol.controls['lastname'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="lastname"
+                            id="apellidos"
+                            placeholder="Perez"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('lastname')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['lastname'].errors && (signupcontrol.controls['lastname'].dirty || signupcontrol.controls['lastname'].touched))"
+                    />
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mx-md-2">
+                <div class="form-group col-md-6 col-12 mb-5">
+                    <label class="d-flex justify-content-center" for="correo">Correo Electrónico (*) </label>
+                    <input
+                            [attr.disabled]="loading? true:null"
+                            type="email"
+                            [class]="(signupcontrol.controls['email'].errors && (signupcontrol.controls['email'].dirty || signupcontrol.controls['email'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="email"
+                            id="correo"
+                            placeholder="correoejemplo@empresa.cl"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('email')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['email'].errors && (signupcontrol.controls['email'].dirty || signupcontrol.controls['email'].touched))"
+                    />
+                </div>
+                <div class="form-group col-md-6 col-12 mb-5">
+                    <label for="celular" class="d-flex justify-content-center">Celular (*)</label>
+                    <input
+                            [attr.disabled]="loading? true:null"
+                            type="tel"
+                            [class]="(signupcontrol.controls['phone'].errors && (signupcontrol.controls['phone'].dirty || signupcontrol.controls['phone'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="phone"
+                            id="celular"
+                            placeholder="912345678"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('phone')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['phone'].errors && (signupcontrol.controls['phone'].dirty || signupcontrol.controls['phone'].touched))"
+                    />
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mx-md-2">
+                <div class="form-group col-md-6 col-12  mb-5">
+                    <label class="d-flex justify-content-center" for="pass">Ingrese su Contraseña (*)</label>
+                    <input
+                            [attr.disabled]="loading? true:null"
+                            type="password"
+                            [class]="(signupcontrol.controls['pass'].errors && (signupcontrol.controls['pass'].dirty || signupcontrol.controls['pass'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="pass"
+                            id="pass"
+                            placeholder="Ingrese su Contraseña"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('pass')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['pass'].errors && (signupcontrol.controls['pass'].dirty || signupcontrol.controls['pass'].touched))"
+                    />
+                </div>
+                <div class="form-group col-md-6 col-12 mb-5">
+                    <label class="d-flex justify-content-center" for="repeatpass">Repita su Contraseña (*) </label>
+                    <input
+                            [attr.disabled]="loading? true:null"
+                            type="password"
+                            [class]="(signupcontrol.controls['repeatpass'].errors && (signupcontrol.controls['repeatpass'].dirty || signupcontrol.controls['repeatpass'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="repeatpass"
+                            id="repeatpass"
+                            placeholder="Repetir contraseña"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('repeatpass')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['repeatpass'].errors && (signupcontrol.controls['repeatpass'].dirty || signupcontrol.controls['repeatpass'].touched))"
+                    />
+                </div>
+            </div>
+            <div class="row  d-flex justify-content-center mx-md-2">
+                <div class="col-md-6 col-12 mb-5">
+                    <label class="d-flex justify-content-center">Region (*)</label>
+                    <select
+                            [attr.disabled]="loading? true:null"
+                            (change)="buscar_ciudad($event)"
+                            [class]="(signupcontrol.controls['region'].errors && (signupcontrol.controls['region'].dirty || signupcontrol.controls['region'].touched)) ? 'border-danger form-select form-control form-control-lg':'form-select form-control form-control-lg'"
+                            name="region"
+                            id="region"
+                            formControlName="region"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('region')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['region'].errors && (signupcontrol.controls['region'].dirty || signupcontrol.controls['region'].touched))"
+
+                    >
+                        <option *ngFor="let r of regions" value="{{r.id_region}}"> {{r.region}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-12 mb-5">
+                    <label class="d-flex justify-content-center">Comuna(*)</label>
+                    <select
+                            [attr.disabled]="loading || !region? true:null"
+                            (change)="enableAddress()"
+                            [class]="(signupcontrol.controls['commune'].errors && (signupcontrol.controls['commune'].dirty || signupcontrol.controls['commune'].touched)) ? 'border-danger form-select form-control form-control-lg':'form-select form-control form-control-lg'"
+                            name="comuna"
+                            id="comuna"
+                            formControlName="commune"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('commune')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['commune'].errors && (signupcontrol.controls['commune'].dirty || signupcontrol.controls['commune'].touched))"
+
+                    ></select>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mx-md-2">
+                <div class="form-group col-md-8 col-12 mb-5">
+                    <label class="d-flex justify-content-center">Ingrese su direccion (*)</label>
+                    <input
+                            [attr.disabled]="loading || !commune? true:null"
+                            type="text"
+                            (change)="direccionShow($event)"
+                            [class]="(signupcontrol.controls['address'].errors && (signupcontrol.controls['address'].dirty || signupcontrol.controls['address'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="address"
+                            id="direccion"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('address')"
+                            [matTooltipDisabled]="!(signupcontrol.controls['address'].errors && (signupcontrol.controls['address'].dirty || signupcontrol.controls['address'].touched))"
+                    />
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mx-md-2">
+                <div class="form-group d-flex flex-column justify-content-center col-12 mx-md-2 ">
+                    <div class="d-flex justify-content-center mb-2">
+                        <button class="btn btn-lg" type="submit" [disabled]="signupcontrol.invalid" > Registrarse </button>
+                    </div>
+                    <p class="d-flex justify-content-center" id="alreadySign"><a routerLink="/core/login" style="vertical-align:middle" >¿Ya tienes una Cuenta?</a></p>
+                </div>
+                <!-- <div class="d-flex justify-content-center col-12">
+                    <p id="alreadySign"><a routerLink="/login" >¿Ya tienes una Cuenta?</a></p>
+                </div> -->
+            </div>
+        </div>
+    </form>
+    <div class="col-12 d-flex justify-content-center mb-5">
+        <button id="back" class="btn btn-lg" onclick="history.go(-1)">
+            <!-- tiene una función history.go(-1) para que vuelva a la pagina atras, por si estaba viendo algún producto etc etc etc -->
+            <span class="material-symbols-outlined" style="vertical-align: middle;">
+                chevron_left
+            </span>
+        <a id="textback">Regresar</a>
+    </button>
+    </div>
+</body>

@@ -1,0 +1,163 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>Información de la publicación</h2>
+        <div class="col-12">
+            <form (ngSubmit)="handleUpdate()" id="info-form" class="row justify-content-center gy-4" [formGroup]="publicationEditForm">
+                <div class="col-12 d-flex flex-column justify-content-start ">
+                    <label class="start-label text-truncate">Título de la Publicación</label>
+                    <input
+                            id="title"
+                            [attr.disabled]="loading? true:null"
+                            type="text"
+                            [defaultValue]="this.publicationEditForm.controls['title'].value"
+                            [class]="(publicationEditForm.controls['title'].errors && (publicationEditForm.controls['title'].dirty || publicationEditForm.controls['title'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="title"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('title')"
+                            [matTooltipDisabled]="!(publicationEditForm.controls['title'].errors && (publicationEditForm.controls['title'].dirty || publicationEditForm.controls['title'].touched))"
+                    />
+                </div>
+                <div class="col-12 d-flex flex-column justify-content-start">
+                    <label class="start-label text-truncate">Descripción de la Publicación</label>
+                    <textarea
+                            id="description"
+                            [attr.disabled]="loading? true:null"
+                            [defaultValue]="this.publicationEditForm.controls['description'].value"
+                            [class]="(publicationEditForm.controls['description'].errors && (publicationEditForm.controls['description'].dirty || publicationEditForm.controls['description'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                            formControlName="description"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('description')"
+                            [matTooltipDisabled]="!(publicationEditForm.controls['description'].errors && (publicationEditForm.controls['description'].dirty || publicationEditForm.controls['description'].touched))"
+                    ></textarea>
+                </div>
+
+                <div class="col-md-3 col-12 d-flex flex-column align-content-start align-items-start">
+                    <label class="start-label text-truncate">Dimensiones</label>
+                    <div class="input-group">
+                        <input
+                                id="dimentions"
+                                [attr.disabled]="loading? true:null"
+                                type="text"
+                                [defaultValue]="this.publicationEditForm.controls['dimentions'].value"
+                                [class]="(publicationEditForm.controls['dimentions'].errors && (publicationEditForm.controls['dimentions'].dirty || publicationEditForm.controls['dimentions'].touched)) ? 'w-50l border-danger form-control form-control-md group-input':'w-50l form-control form-control-md group-input'"
+                                formControlName="dimentions"
+                                matTooltipClass="bg-danger" matTooltipPosition="below"
+                                [matTooltip]="getError('dimentions')"
+                                [matTooltipDisabled]="!(publicationEditForm.controls['dimentions'].errors && (publicationEditForm.controls['dimentions'].dirty || publicationEditForm.controls['dimentions'].touched))"
+                        />
+                        <select
+                                id="unity"
+                                [attr.disabled]="loading? true:null"
+                                [class]="(publicationEditForm.controls['unity'].errors && (publicationEditForm.controls['unity'].dirty || publicationEditForm.controls['unity'].touched)) ? 'w-50r border-danger form-select form-select-md group-select':'w-50r form-select form-select-md group-select'"
+                                formControlName="unity"
+                                matTooltipClass="bg-danger" matTooltipPosition="below"
+                                [matTooltip]="getError('unity')"
+                                [matTooltipDisabled]="!(publicationEditForm.controls['unity'].errors && (publicationEditForm.controls['unity'].dirty || publicationEditForm.controls['unity'].touched))"
+                        >
+                            <option disabled selected></option>
+                            <option *ngFor="let unity of pubProperties['Unities']" value="{{unity.id_unity}}"> {{unity.publication_unity}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 d-flex flex-column align-content-start align-items-start">
+                    <label class="start-label text-truncate">Peso del Producto</label>
+                    <div class="input-group">
+                        <input
+                                id="weight"
+                                [attr.disabled]="loading? true:null"
+                                type="text"
+                                [defaultValue]="this.publicationEditForm.controls['weight'].value"
+                                [class]="(publicationEditForm.controls['weight'].errors && (publicationEditForm.controls['weight'].dirty || publicationEditForm.controls['weight'].touched)) ? 'w-50l border-danger form-control form-control-md group-input':'w-50l form-control form-control-md group-input'"
+                                formControlName="weight"
+                                matTooltipClass="bg-danger" matTooltipPosition="below"
+                                [matTooltip]="getError('weight')"
+                                [matTooltipDisabled]="!(publicationEditForm.controls['weight'].errors && (publicationEditForm.controls['weight'].dirty || publicationEditForm.controls['weight'].touched))"
+                        />
+                        <input
+                                [attr.disabled]="loading? true:null"
+                                value="KG"
+                                [class]="(publicationEditForm.controls['weight'].errors && (publicationEditForm.controls['weight'].dirty || publicationEditForm.controls['weight'].touched)) ? 'w-50r border-danger form-control form-control-md group-select':'w-50r form-control form-control-md group-select'"
+                                matTooltipClass="bg-danger" matTooltipPosition="below"
+                                [matTooltip]="getError('weight')"
+                                [matTooltipDisabled]="!(publicationEditForm.controls['weight'].errors && (publicationEditForm.controls['weight'].dirty || publicationEditForm.controls['weight'].touched))"
+                                readonly
+                        />
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 d-flex flex-column align-content-start align-items-start">
+                    <label class="start-label text-truncate">Precio del Producto</label>
+                    <div class="input-group">
+                        <input
+                                id="price"
+                                [attr.disabled]="loading? true:null"
+                                type="text"
+                                [defaultValue]="this.publicationEditForm.controls['price'].value"
+                                [class]="(publicationEditForm.controls['price'].errors && (publicationEditForm.controls['price'].dirty || publicationEditForm.controls['price'].touched)) ? 'w-50l border-danger form-control form-control-md group-input':'w-50l form-control form-control-md group-input'"
+                                matTooltipClass="bg-danger" matTooltipPosition="below"
+                                [matTooltip]="getError('price')"
+                                [matTooltipDisabled]="!(publicationEditForm.controls['price'].errors && (publicationEditForm.controls['price'].dirty || publicationEditForm.controls['price'].touched))"
+                                formControlName="price"
+                        />
+                        <input
+                                [attr.disabled]="loading? true:null"
+                                value="$CLP"
+                                [class]="(publicationEditForm.controls['price'].errors && (publicationEditForm.controls['price'].dirty || publicationEditForm.controls['price'].touched)) ? 'w-50r border-danger form-control form-control-md group-select':'w-50r form-control form-control-md group-select'"
+                                matTooltipClass="bg-danger" matTooltipPosition="below"
+                                [matTooltip]="getError('price')"
+                                [matTooltipDisabled]="!(publicationEditForm.controls['price'].errors && (publicationEditForm.controls['price'].dirty || publicationEditForm.controls['price'].touched))"
+                                readonly
+                        >
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 d-flex flex-column align-content-start align-items-start">
+                    <label class="start-label text-truncate">Stock del Producto</label>
+                    <input
+                            id="current_stock"
+                            [attr.disabled]="loading? true:null"
+                            type="number"
+                            [defaultValue]="this.publicationEditForm.controls['current_stock'].value"
+                            [class]="(publicationEditForm.controls['current_stock'].errors && (publicationEditForm.controls['current_stock'].dirty || publicationEditForm.controls['current_stock'].touched)) ? ' border-danger form-control form-control-md group-input':' form-control form-control-md group-input'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('current_stock')"
+                            [matTooltipDisabled]="!(publicationEditForm.controls['current_stock'].errors && (publicationEditForm.controls['current_stock'].dirty || publicationEditForm.controls['current_stock'].touched))"
+                            formControlName="current_stock"
+                    />
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Categorias</label>
+                    <select
+                            id="category"
+                            [attr.disabled]="loading? true:null"
+                            formControlName="category"
+                            [class]="(publicationEditForm.controls['category'].errors && (publicationEditForm.controls['category'].dirty || publicationEditForm.controls['category'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('category')"
+                            [matTooltipDisabled]="!(publicationEditForm.controls['category'].errors && (publicationEditForm.controls['category'].dirty || publicationEditForm.controls['category'].touched))"
+                    >
+                        <option [selected]="category?.id_pubc === publication?.category ? true : null"  *ngFor="let category of pubProperties['Categories']" value="{{category.id_pubc}}"> {{category.publication_category}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Estado del producto</label>
+                    <select
+                            id="productState"
+                            [attr.disabled]="loading? true:null"
+                            formControlName="productState"
+                            [class]="(publicationEditForm.controls['productState'].errors && (publicationEditForm.controls['productState'].dirty || publicationEditForm.controls['productState'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('productState')"
+                            [matTooltipDisabled]="!(publicationEditForm.controls['productState'].errors && (publicationEditForm.controls['productState'].dirty || publicationEditForm.controls['productState'].touched))"
+                    >
+                        <option *ngFor="let state of pubProperties['States']" value="{{state.id_pubs}}"> {{state.product_state}}</option>
+                    </select>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="d-flex justify-content-between">
+                        <button [disabled]="disabled()" class="me-2 btn btn-sm border-success action"> Guardar cambios </button>
+                        <button [disabled] = "publication?.current_stock === 0 || publication?.closed_by_admin"(click)="reset()" type="button" class="btn btn-sm border-success action"> Cancelar </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

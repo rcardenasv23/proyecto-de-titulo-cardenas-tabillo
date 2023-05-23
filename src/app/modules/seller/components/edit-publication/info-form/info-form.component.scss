@@ -1,0 +1,19 @@
+.w-50l{
+  width: 65%;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+.w-50r{
+  width: 35%;
+  @media (min-width: 1024px) {
+    width: 50%;
+  }
+}
+.start-label{
+  margin-inline-start: 0.5rem;
+  margin-bottom: 6px;
+}
+.action:hover{
+  color: var(--subaster-main);
+}

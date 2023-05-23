@@ -1,0 +1,12 @@
+<router-outlet>
+    <div class="container">
+        <div class="row py-5 gy-md-5">
+            <div class="col-12 col-md-3 left-layout">
+                <app-profile-layout (option)="changeOption($event)"></app-profile-layout>
+            </div>
+            <div class="col-12 col-md-9 right-layout">
+                <router-outlet name="user-profile"></router-outlet>
+            </div>
+        </div>
+    </div>
+</router-outlet>

@@ -1,0 +1,148 @@
+<div class="container my-2">
+    <h1 class="d-flex justify-content-center align-items-center fw-semibold">Editar información</h1>
+    <mat-progress-bar color="accent" *ngIf="loading? true:null"  mode="indeterminate"></mat-progress-bar>
+    <form class="row gy-4" (ngSubmit)="handleUpdate()" [formGroup]="updateForm">
+        <div class="col-12">
+            <h2>Información básica</h2>
+            <div class="row gy-4">
+                <div class="col-12 col-md-6">
+                    <label class="start-label text-truncate">Correo electrónico de contacto (*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['email'].errors && (updateForm.controls['email'].dirty || updateForm.controls['email'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="email"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('email')"
+                            [matTooltipDisabled]="!(updateForm.controls['email'].errors && (updateForm.controls['email'].dirty || updateForm.controls['email'].touched))"
+                    />
+                </div>
+                <div class="col-12 col-md-6 ">
+                    <label class="start-label text-truncate">RUT (*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['rut'].errors && (updateForm.controls['rut'].dirty || updateForm.controls['rut'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="rut"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('rut')"
+                            [matTooltipDisabled]="!(updateForm.controls['rut'].errors && (updateForm.controls['rut'].dirty || updateForm.controls['rut'].touched))"
+                    />
+                </div>
+                <div class="col-12 col-md-6 ">
+                    <label class="start-label text-truncate">Nombre de la Tienda (*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['store_name'].errors && (updateForm.controls['store_name'].dirty || updateForm.controls['store_name'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="store_name"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('store_name')"
+                            [matTooltipDisabled]="!(updateForm.controls['store_name'].errors && (updateForm.controls['store_name'].dirty || updateForm.controls['store_name'].touched))"
+                    />
+                </div>
+                <div class="col-12 col-md-6 ">
+                    <label class="start-label text-truncate">Celular (*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['phone'].errors && (updateForm.controls['phone'].dirty || updateForm.controls['phone'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="phone"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('phone')"
+                            [matTooltipDisabled]="!(updateForm.controls['phone'].errors && (updateForm.controls['phone'].dirty || updateForm.controls['phone'].touched))"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <h2>Información de pago</h2>
+            <div class="row gy-4">
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Nombre del Banco(*)</label>
+                    <select
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['bank_name'].errors && (updateForm.controls['bank_name'].dirty || updateForm.controls['bank_name'].touched)) ? 'border-danger form-select':'form-select'"
+                            formControlName="bank_name"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('bank_name')"
+                            [matTooltipDisabled]="!(updateForm.controls['bank_name'].errors && (updateForm.controls['bank_name'].dirty || updateForm.controls['bank_name'].touched))"
+                    >
+                        <option *ngFor="let bank of banks" [value]="bank.nombre">{{bank.nombre}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Nombre del destinatario de cuenta(*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['bank_account_name'].errors && (updateForm.controls['bank_account_name'].dirty || updateForm.controls['bank_account_name'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="bank_account_name"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('bank_account_name')"
+                            [matTooltipDisabled]="!(updateForm.controls['bank_account_name'].errors && (updateForm.controls['bank_account_name'].dirty || updateForm.controls['bank_account_name'].touched))"
+                    />
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Tipo de cuenta(*)</label>
+                    <select
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['bank_account_type'].errors && (updateForm.controls['bank_account_type'].dirty || updateForm.controls['bank_account_type'].touched)) ? 'border-danger form-select':'form-select'"
+                            formControlName="bank_account_type"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('bank_account_type')"
+                            [matTooltipDisabled]="!(updateForm.controls['bank_account_type'].errors && (updateForm.controls['bank_account_type'].dirty || updateForm.controls['bank_account_type'].touched))"
+                    >
+                        <option value="Ahorro">Cuenta de Ahorro</option>
+                        <option value="Vista">Cuenta Vista</option>
+                        <option value="Corriente">Cuenta Corriente</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Número de cuenta del destinatario(*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['bank_account_address'].errors && (updateForm.controls['bank_account_address'].dirty || updateForm.controls['bank_account_address'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="bank_account_address"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('bank_account_address')"
+                            [matTooltipDisabled]="!(updateForm.controls['bank_account_address'].errors && (updateForm.controls['bank_account_address'].dirty || updateForm.controls['bank_account_address'].touched))"
+                    />
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">RUT de destinatario de la cuenta(*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['bank_account_rut'].errors && (updateForm.controls['bank_account_rut'].dirty || updateForm.controls['bank_account_rut'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="bank_account_rut"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('bank_account_rut')"
+                            [matTooltipDisabled]="!(updateForm.controls['bank_account_rut'].errors && (updateForm.controls['bank_account_rut'].dirty || updateForm.controls['bank_account_rut'].touched))"
+                    />
+                </div>
+                <div class="col-md-6 col-12">
+                    <label class="start-label text-truncate">Email del destinatario de la cuenta(*)</label>
+                    <input
+                            [attr.disabled]="loading?true:null"
+                            type="text"
+                            [class]="(updateForm.controls['bank_account_email'].errors && (updateForm.controls['bank_account_email'].dirty || updateForm.controls['bank_account_email'].touched)) ? 'border-danger form-control':'form-control'"
+                            formControlName="bank_account_email"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('bank_account_email')"
+                            [matTooltipDisabled]="!(updateForm.controls['bank_account_email'].errors && (updateForm.controls['bank_account_email'].dirty || updateForm.controls['bank_account_email'].touched))"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <div class="d-flex justify-content-between">
+                <button class="btn me-1" [disabled]="updateForm.invalid">Actualizar</button>
+                <button (click)="reset()" type="button" class="btn" [disabled]="loading?true:null">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>

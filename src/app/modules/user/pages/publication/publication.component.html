@@ -1,0 +1,80 @@
+<router-outlet>
+    <div class="container-fluid">
+        <div class="row gy-4 mx-md-5 mb-2">
+            <div class="col-md-6 col-12">
+                <div class="row p-2">
+                    <div class="col-md-2 col-12 img-container">
+                        <div *ngFor="let image of publication.files">
+                            <button
+                                    (click)="imageSelected = image"
+                                    class="publicaction-button-small"
+                            >
+                                <img [ngClass]="image.id_file === imageSelected.id_file?'publicaction-image-small-border':'publicaction-image-small'" [src]="image.url" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-12 d-flex justify-content-center align-items-center d-none d-md-flex ">
+                        <img
+                                class="publicaction-image-big"
+                                [src]="imageSelected.url"
+                        />
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-12 d-flex flex-column justify-content-center align-items-center">
+                <h1 class="text-center fs-1">{{publication.title}}</h1>
+                <div class="d-flex">
+                    <h2 class="fs-3 me-1">
+                        Valor Actual:
+                    </h2>
+                    <h2 class="fs-3 text-success">
+                        $CLP {{publication.price}}
+                    </h2>
+                </div>
+                <form [formGroup]="quantityForm" novalidate>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <label class="me-1">Cantidad</label>
+                        <input
+                                [attr.disabled]="loading ||  publication.current_stock === 0 ? true:null"
+                                formControlName="quantity"
+                                type="number"
+                                style="width: 3rem"
+                                [class]="(quantityForm.controls['quantity'].errors && (quantityForm.controls['quantity'].dirty || quantityForm.controls['quantity'].touched)) ? 'border-danger form-control form-control-sm group-input':'form-control form-control-sm group-input'"
+                                matTooltipClass="bg-danger" matTooltipPosition="below"
+                                [matTooltip]="getError('quantity')"
+                                [matTooltipDisabled]="!(quantityForm.controls['quantity'].errors && (quantityForm.controls['quantity'].dirty || quantityForm.controls['quantity'].touched))"
+                        />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center my-2">
+                        <p>Cantidad disponible: {{this.publication.current_stock}}</p>
+                    </div>
+                    <div *ngIf="!isWebView && publication.current_stock > 0" class="d-flex flex-md-column flex-row justify-content-between justify-content-md-center">
+                        <button (click)="handleBuy(false) " [disabled]="quantityForm.invalid || seller !== undefined" type="button" class="btn btn-md action-button me-2 mb-md-2 me-md-0">Añadir al carrito</button>
+                        <button (click)="handleBuy(true) " [disabled]="quantityForm.invalid || seller !== undefined" type="button" class="btn btn-md action-button me-2 me-md-0">Comprar Ahora</button>
+                    </div>
+                    <div *ngIf="!isWebView && publication.current_stock === 0" class="d-flex justify-content-center align-items-center my-2">
+                        <p class="text-danger">Publicación no disponible</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row px-md-5 px-2 gy-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-start align-items-center flex-row overflow-auto">
+                    <button (click)="optionChange(0)" [ngClass]="[option===0?'btn btn-md option-button fw-semibold':'btn btn-md option-button']" ><p class="text-nowrap">Descripción</p></button>
+                    <div class="fs-3 text-success" style="position: relative;top: -8px">|</div>
+                    <button (click)="optionChange(1)" [ngClass]="[option===1?'btn btn-md option-button fw-semibold':'btn btn-md option-button']"><p class="text-nowrap">Ficha técnica</p></button>
+                </div>
+            </div>
+            <div class="col-12 content">
+                <app-description *ngIf="option === 0" [description]="publication.description"></app-description>
+                <app-data-sheet *ngIf="option ===1" [publication]="publication"></app-data-sheet>
+            </div>
+            <div class="col-12">
+                <app-comments [comments]="publication.comments" (revalidate)="revalidate(publication?.id_fixed!)" [user]="user" [id_fixed]="publication.id_fixed" [canComment]="canComment"></app-comments>
+            </div>
+        </div>
+
+    </div>
+</router-outlet>

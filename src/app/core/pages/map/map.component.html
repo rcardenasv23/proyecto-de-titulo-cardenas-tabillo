@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row my-5">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="col-6 d-flex justify-content-center">
+                <button type="button" class="btn btn-lg border-1 border-success" (click)="setMapCurrent()">Usar Posición Actual</button>
+            </div>
+            <div *ngIf="logged == true" class="col-6 d-flex justify-content-center">
+                <button type="button" class="btn btn-lg border-1 border-success" (click)="setMapDir()">Usar Mi Dirección</button>
+            </div>
+        </div>
+        <div class="col-12 my-5" style="height: 100vh;">
+            <div id="google" style="height: 100%;">
+
+            </div>
+        </div>
+    </div>
+</div>

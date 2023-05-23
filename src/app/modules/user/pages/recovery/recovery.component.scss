@@ -1,0 +1,33 @@
+.form-control{
+    border-radius: 50px;
+    box-shadow: 0 6px 2px -2px #343131;
+
+}
+label{
+    color: white;
+    font-size: large;
+    font-weight: 400;
+}
+h2{
+    color: white;
+    font-weight: 400;
+}
+a{
+    color: white;
+    font-size: large;
+    &:hover{
+        color: gray;
+    }
+}
+button{
+    background-color: var(--subaster-main);
+    border-radius: 100px;
+    color: white;
+}
+.error {
+  color: red;
+}
+form{
+    background-color: var(--subaster-main);
+    border-radius: 16px;
+}

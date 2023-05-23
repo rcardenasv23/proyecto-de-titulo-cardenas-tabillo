@@ -1,0 +1,22 @@
+<div class="profile-container">
+    <div class="row">
+        <div class="col-12 py-2">
+            <button [routerLink]="'.'" class="w-100 layout-button">Información Basica</button>
+        </div>
+        <div class="col-12 py-2">
+            <button [routerLink]="[{outlets: {'user-profile': 'change-address'}}]" class="w-100 layout-button">Modificar Dirección</button>
+        </div>
+        <div class="col-12 py-2">
+            <button [routerLink]="[{outlets: {'user-profile': 'change-password'}}]" class="w-100 layout-button">Modificar Contraseña</button>
+        </div>
+        <div class="col-12 py-2">
+            <button [routerLink]="[{outlets: {'user-profile': 'buys'}}]" class="w-100 layout-button">Historial de Compras</button>
+        </div>
+        <div *ngIf="user?.seller === false" class="col-12 py-2">
+            <button [routerLink]="[{outlets: {'user-profile': 'seller-signup'}}]"  class="w-100 layout-button">Unirse como Vendedor</button>
+        </div>
+        <div *ngIf="user?.seller === true" class="col-12 py-2">
+            <button [routerLink]="['/seller/menu']" class="w-100 layout-button">Ver Perfil de Vendedor</button>
+        </div>
+    </div>
+</div>

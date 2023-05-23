@@ -1,0 +1,20 @@
+.container-fluid{
+  background-color: var(--subaster-main);
+  margin-top: 5vh;
+}
+img{
+  max-width: 5vh;
+  min-width: 10px;
+  height: auto;
+}
+.footer-text{
+  word-break: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2vw;
+  @media (min-width: 768px){
+    font-size: 1vw;
+  }
+  color: white;
+}

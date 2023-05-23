@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>Archivos multimedia de la publicación</h2>
+        <div class="col-12">
+            <div *ngIf="publication?.files" class="d-flex align-items-center edit-card p-2 py-4">
+                <button [attr.disabled]="loading ? true : null" (click)="handleDelete(file!)" class="button_img" *ngFor="let file of publication?.files, let i = index" [attr.data-index]="i">
+                    <img class="preview" src="{{file.url}}" alt="publication-image">
+                    <img class="close" src="assets/close_icon.png" alt="close-image">
+                </button>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center my-2 ">
+            <mat-progress-bar class="w-75" color="accent" *ngIf="loading? true:null"  mode="indeterminate"></mat-progress-bar>
+        </div>
+
+        <form class="col-12 mt-3" [formGroup]="mediaControl" (ngSubmit)="handleAdd()">
+            <div class="input-group">
+                <input
+                        id="files"
+                        (change)="loadMedia($event)"
+                        type="file"
+                        accept=".jpg,.jpeg,.png"
+                        formControlName="media"
+                        [class]="(mediaControl.controls['media'].errors && (mediaControl.controls['media'].dirty || mediaControl.controls['media'].touched)) ? 'border-danger form-control form-control-md':'form-control form-control-md'"
+                        matTooltipClass="bg-danger" matTooltipPosition="below"
+                        matTooltip="Archivo requerido para añadir"
+                        [matTooltipDisabled]="!(mediaControl.controls['media'].errors && (mediaControl.controls['media'].dirty || mediaControl.controls['media'].touched))"
+                        multiple
+                        [attr.disabled]="publication?.current_stock === 0 || publication?.closed_by_admin? true:null"
+                />
+                <button [disabled] = "publication?.current_stock === 0 || publication?.closed_by_admin" [attr.disabled]="media.length === 0? true:null"  class="btn btn-outline-success">Añadir</button>
+            </div>
+        </form>
+    </div>
+</div>

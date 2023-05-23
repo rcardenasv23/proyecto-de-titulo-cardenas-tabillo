@@ -1,0 +1,47 @@
+<body>
+<div class="container mt-5">
+    <form class="row d-flex justify-content-center py-4" (ngSubmit)="sendRecovery()"  [formGroup]="recoverycontrol" novalidate>
+        <div class="col-12 mb-5">
+            <h2 class="d-flex justify-content-center">RECUPERACIÓN DE CONTRASEÑA</h2>
+        </div>
+        <div class="form-group col-md-6 mx-md-2 mb-5" style="text-align-last: center;">
+            <label class="d-flex justify-content-center pb-4" for="email">CORREO ELECTRÓNICO:</label>
+            <input
+                    [attr.disabled]="loading? true:null"
+                    type="email"
+                    id="email"
+                    placeholder="correo@correo.example"
+                    [class]="(recoverycontrol.controls['email'].errors && (recoverycontrol.controls['email'].dirty || recoverycontrol.controls['email'].touched)) ? 'border-danger form-control':'form-control'"
+                    formControlName="email"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('email')"
+                    [matTooltipDisabled]="!(recoverycontrol.controls['email'].errors && (recoverycontrol.controls['email'].dirty || recoverycontrol.controls['email'].touched))"
+            />
+        </div>
+        <div class="form-group col-md-6 mx-md-2 mb-2" style="text-align-last: center;">
+            <label class="d-flex justify-content-center pb-4" for="phone">Teléfono:</label>
+            <input
+                    [attr.disabled]="loading? true:null"
+                    type="phone"
+                    id="phone"
+                    placeholder="011223344"
+                    [class]="(recoverycontrol.controls['phone'].errors && (recoverycontrol.controls['phone'].dirty || recoverycontrol.controls['phone'].touched)) ? 'border-danger form-control':'form-control'"
+                    formControlName="phone"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('phone')"
+                    [matTooltipDisabled]="!(recoverycontrol.controls['phone'].errors && (recoverycontrol.controls['phone'].dirty || recoverycontrol.controls['phone'].touched))"
+            />
+            <button type="submit" class="btn btn-lg my-3" [disabled]="recoverycontrol.invalid || loading">Confirmar</button>
+        </div>
+        <div class="col-12 mb-4">
+            <a class="d-flex justify-content-center" href="/core/login">Volver al Inicio de Sesión</a>
+        </div>
+        <div class="container col-12 justify-content-center mb-5" style="text-align-last: center;">
+            <p>¿No estás registrado?</p>
+            <button class="btn btn-lg" routerLink="/core/signup">Registrarse</button>
+        </div>
+    </form>
+</div>
+</body>
+
+

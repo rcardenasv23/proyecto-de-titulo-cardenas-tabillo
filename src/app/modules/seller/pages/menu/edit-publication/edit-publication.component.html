@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row my-3">
+        <div class="col-12 d-flex justify-content-between align-items-center ">
+            <div class="position-relative m-0 p-0">
+                <button
+                        [routerLink]="['/seller/menu/', {outlets: {'seller-menu': 'publications'}}]"
+                        class="position-absolute m-0 p-0 border-0 bg-transparent back">
+                    <span class="fs-1 material-symbols-outlined">
+                        reply
+                    </span>
+                </button>
+            </div>
+            <h1 class="fw-bold">Editar Publicación</h1>
+            <span></span>
+        </div>
+        <div *ngIf="publication?.current_stock === 0" class="col-12 d-flex justify-content-center">
+            <p class="text-danger">Publicación desactivada, debido a que el producto esta agotado (stock 0), si desea reactivarla ir al final de la pagina</p>
+        </div>
+        <div *ngIf="publication?.closed_by_admin"  class="col-12 d-flex justify-content-center">
+            <p class="text-danger">Publicación desactivada por administrador, en caso de duda contactarse con soporte, a través de "Contacto" en la barra de navegación</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <mat-progress-spinner color="accent" *ngIf="!publication?.id_fixed && !seller? true:null "  mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <div class="col-12 mb-4 p-2" style="border:1px solid var(--subaster-main); border-radius: 0.5rem">
+            <app-media-form (revalidate)="revalidate(publication?.id_fixed!)" *ngIf="publication?.id_fixed && seller"  [seller]="seller" [publication]="publication"></app-media-form>
+        </div>
+        <div class="col-12 mb-4 p-2" style="border:1px solid var(--subaster-main); border-radius: 0.5rem">
+            <app-info-form (revalidate)="revalidate(publication?.id_fixed!)" *ngIf="publication?.id_fixed && seller" [seller]="seller" [publication]="publication"></app-info-form>
+        </div>
+        <div class="col-12 mb-4 p-2" style="border:1px solid var(--subaster-main); border-radius: 0.5rem">
+            <app-address-form (revalidate)="revalidate(publication?.id_fixed!)" *ngIf="publication?.id_fixed && seller"  [seller]="seller" [publication]="publication"></app-address-form>
+        </div>
+        <div *ngIf="available && publication?.current_stock !== 0" class="col-12 ">
+            <div class="row p-0 d-flex justify-content-between align-items-center p-2" style="border:1px solid var(--subaster-main); border-radius: 0.5rem">
+                <div class="col-10 d-flex justify-content-start align-items-center">
+                    <p>Deshabilitar publicación. Esto hará que los usuarios no puedan verla ni interactuar con ella.</p>
+                </div>
+                <div class="col-2 d-flex justify-content-end align-items-center">
+                    <button (click)="closePublication()" type="button" class="btn btn-danger">Deshabilitar</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!available && publication?.current_stock !== 0" class="col-12 ">
+            <div class="row p-0 d-flex justify-content-between align-items-center p-2" style="border:1px solid var(--subaster-main); border-radius: 0.5rem">
+                <div class="col-10 d-flex justify-content-start align-items-center">
+                    <p>Habilitar publicación. Esto hará que los usuarios puedan interactuar con ella.</p>
+                </div>
+                <div class="col-2 d-flex justify-content-end align-items-center">
+                    <button [disabled]="publication?.closed_by_admin? true:null" (click)="openPublication()" type="button" class="btn" style="background-color: var(--subaster-main); color: white">Habilitar</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!available && publication?.current_stock === 0" class="col-12 ">
+            <div class="row p-0 d-flex justify-content-between align-items-center p-2" style="border:1px solid var(--subaster-main); border-radius: 0.5rem">
+                <div class="col-10 d-flex justify-content-start align-items-center">
+                    <p>Repetir publicación. La publicaciòn volvera a activarse con stock {{publication?.stock}}, el cual se estableció en su inicialmente en su creación.</p>
+                </div>
+                <div class="col-2 d-flex justify-content-end align-items-center">
+                    <button (click)="reActivate()" type="button" class="btn" style="background-color: var(--subaster-main); color: white">Repetir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

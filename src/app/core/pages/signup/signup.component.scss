@@ -1,0 +1,28 @@
+form{
+  background-color: var(--subaster-main);
+  color: white;
+  border-radius: 20px;
+}
+a, a:focus, a:active{
+  color: white;
+  text-decoration: none;
+}
+a:hover{
+  color: rgba(255, 255, 255, 0.58)
+}
+.error{
+  color: red;
+}
+
+//Botón de back
+#back{
+  color: grey;
+}
+
+#textback{
+  font-size: medium;
+}
+
+#back:hover, #back:focus{
+  color: green;
+}

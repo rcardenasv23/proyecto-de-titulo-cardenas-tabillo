@@ -1,0 +1,232 @@
+<div class="container-fluid px-4 py-4">
+    <h2 class="d-flex justify-content-center align-items-center fw-bold fs-3">Crear Publicación</h2>
+    <mat-progress-bar color="accent" *ngIf="loading? true:null"  mode="indeterminate"></mat-progress-bar>
+    <form class="row mt-5 gy-5 d-flex justify-content-center align-items-center" [formGroup]="publicationForm" (ngSubmit)="handleSubmit()">
+        <div class="col-12 d-flex flex-column justify-content-start">
+            <label class="start-label text-truncate">Multimedia</label>
+            <input 
+ 	                [attr.disabled]="loading? true:null"
+                    id="files"
+                    (change)="loadMedia($event)"
+                    type="file"
+                    accept=".jpg,.jpeg,.png"
+                    formControlName="media"
+                    [class]="(publicationForm.controls['media'].errors && (publicationForm.controls['media'].dirty || publicationForm.controls['media'].touched)) ? 'border-danger form-control form-control-md':'form-control form-control-md'"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('media')"
+                    [matTooltipDisabled]="!(publicationForm.controls['media'].errors && (publicationForm.controls['media'].dirty || publicationForm.controls['media'].touched))"
+                    multiple
+            />
+            <p *ngIf="media.length">Archivos multimedia añadidos {{media.length}}</p>
+
+            <div *ngIf="media.length > 0" class="img-container mt-5 gx-4" >
+                <button class="button_img" *ngFor="let url of media, let i = index" [attr.data-index]="i" (click)="deletemedia(i)">
+                    <img class="preview mx-2" src="{{url}}">
+                </button>
+            </div>
+        </div>
+        <div class="col-12 d-flex flex-column justify-content-start">
+            <label class="start-label text-truncate">Título de la Publicación</label>
+            <input 
+ 	                [attr.disabled]="loading? true:null"
+                    type="text"
+                    [class]="(publicationForm.controls['title'].errors && (publicationForm.controls['title'].dirty || publicationForm.controls['title'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                    formControlName="title"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('title')"
+                    [matTooltipDisabled]="!(publicationForm.controls['title'].errors && (publicationForm.controls['title'].dirty || publicationForm.controls['title'].touched))"
+            />
+        </div>
+        <div class="col-12 d-flex flex-column justify-content-start">
+            <label class="start-label text-truncate">Descripción de la Publicación</label>
+            <textarea
+                    [attr.disabled]="loading? true:null"
+                    [class]="(publicationForm.controls['description'].errors && (publicationForm.controls['description'].dirty || publicationForm.controls['description'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                    formControlName="description"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('description')"
+                    [matTooltipDisabled]="!(publicationForm.controls['description'].errors && (publicationForm.controls['description'].dirty || publicationForm.controls['description'].touched))"
+            ></textarea>
+        </div>
+
+        <div class="col-md-6 col-12">
+            <div class="row d-flex align-content-start align-items-start">
+                <div class="col-8">
+                    <label class="start-label text-truncate">Dimensiones</label>
+                    <input 
+ 	                        [attr.disabled]="loading? true:null"
+                            type="text"
+                            [class]="(publicationForm.controls['dimentions'].errors && (publicationForm.controls['dimentions'].dirty || publicationForm.controls['dimentions'].touched)) ? 'border-danger form-control form-control-md group-input':'form-control form-control-md group-input'"
+                            formControlName="dimentions"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('dimentions')"
+                            [matTooltipDisabled]="!(publicationForm.controls['dimentions'].errors && (publicationForm.controls['dimentions'].dirty || publicationForm.controls['dimentions'].touched))"
+                    />
+                </div>
+                <div class="col-4 stick-select align-items-end">
+                    <select 
+ 	                        [attr.disabled]="loading? true:null"
+                            [class]="(publicationForm.controls['unity'].errors && (publicationForm.controls['unity'].dirty || publicationForm.controls['unity'].touched)) ? 'border-danger form-select form-select-md group-select':'form-select form-select-md group-select'"
+                            formControlName="unity"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('unity')"
+                            [matTooltipDisabled]="!(publicationForm.controls['unity'].errors && (publicationForm.controls['unity'].dirty || publicationForm.controls['unity'].touched))"
+                    >
+                        <option disabled selected></option>
+                        <option *ngFor="let unity of pubProperties['Unities']" value="{{unity.id_unity}}"> {{unity.publication_unity}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 d-flex align-content-start align-items-start">
+            <div class="row ">
+                <div class="col-8">
+                    <label class="start-label text-truncate">Peso del Producto</label>
+                    <input 
+ 	                        [attr.disabled]="loading? true:null"
+                            type="number"
+                            [class]="(publicationForm.controls['weight'].errors && (publicationForm.controls['weight'].dirty || publicationForm.controls['weight'].touched)) ? 'border-danger form-control form-control-md group-input':'form-control form-control-md group-input'"
+                            formControlName="weight"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('weight')"
+                            [matTooltipDisabled]="!(publicationForm.controls['weight'].errors && (publicationForm.controls['weight'].dirty || publicationForm.controls['weight'].touched))"
+                    />
+                </div>
+                <div class="col-4 stick-select">
+                    <input 
+ 	                        [attr.disabled]="loading? true:null"
+                            value="KG"
+                            [class]="(publicationForm.controls['weight'].errors && (publicationForm.controls['weight'].dirty || publicationForm.controls['weight'].touched)) ? 'border-danger form-control form-control-md group-select':'form-control form-control-md group-select'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('weight')"
+                            [matTooltipDisabled]="!(publicationForm.controls['weight'].errors && (publicationForm.controls['weight'].dirty || publicationForm.controls['weight'].touched))"
+                            readonly>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12">
+            <label class="start-label text-truncate">Categorias</label>
+            <select 
+ 	                [attr.disabled]="loading? true:null"
+                    formControlName="category"
+                    [class]="(publicationForm.controls['category'].errors && (publicationForm.controls['category'].dirty || publicationForm.controls['category'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('category')"
+                    [matTooltipDisabled]="!(publicationForm.controls['category'].errors && (publicationForm.controls['category'].dirty || publicationForm.controls['category'].touched))"
+            >
+                <option disabled selected></option>
+                <option *ngFor="let category of pubProperties['Categories']" value="{{category.id_pubc}}"> {{category.publication_category}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-12">
+            <label class="start-label text-truncate">Estado del producto</label>
+            <select 
+ 	                [attr.disabled]="loading? true:null"
+                    formControlName="productState"
+                    [class]="(publicationForm.controls['productState'].errors && (publicationForm.controls['productState'].dirty || publicationForm.controls['productState'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('productState')"
+                    [matTooltipDisabled]="!(publicationForm.controls['productState'].errors && (publicationForm.controls['productState'].dirty || publicationForm.controls['productState'].touched))"
+            >
+                <option disabled></option>
+                <option *ngFor="let state of pubProperties['States']" value="{{state.id_pubs}}"> {{state.product_state}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-12">
+            <div class="row">
+                <div class="col-8">
+                    <label class="start-label text-truncate">Precio del Producto</label>
+                    <input 
+ 	                        [attr.disabled]="loading? true:null"
+                            type="number"
+                            [class]="(publicationForm.controls['price'].errors && (publicationForm.controls['price'].dirty || publicationForm.controls['price'].touched)) ? 'border-danger form-control form-control-md group-input':'form-control form-control-md group-input'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('price')"
+                            [matTooltipDisabled]="!(publicationForm.controls['price'].errors && (publicationForm.controls['price'].dirty || publicationForm.controls['price'].touched))"
+                            formControlName="price"
+                    />
+                </div>
+                <div class="col-4 stick-select">
+                    <input 
+ 	                        [attr.disabled]="loading? true:null"
+                            value="$CLP"
+                            [class]="(publicationForm.controls['price'].errors && (publicationForm.controls['price'].dirty || publicationForm.controls['price'].touched)) ? 'border-danger form-control form-control-md group-select':'form-control form-control-md group-select'"
+                            matTooltipClass="bg-danger" matTooltipPosition="below"
+                            [matTooltip]="getError('price')"
+                            [matTooltipDisabled]="!(publicationForm.controls['price'].errors && (publicationForm.controls['price'].dirty || publicationForm.controls['price'].touched))"
+                            readonly
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12">
+            <label class="start-label text-truncate">Cantidad a Vender</label>
+            <input 
+ 	                [attr.disabled]="loading? true:null"
+                    type="number"
+                    [class]="(publicationForm.controls['stock'].errors && (publicationForm.controls['stock'].dirty || publicationForm.controls['stock'].touched)) ? 'border-danger form-control form-control-md no-stick-select':'form-control form-control-md no-stick-select'"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('stock')"
+                    [matTooltipDisabled]="!(publicationForm.controls['stock'].errors && (publicationForm.controls['stock'].dirty || publicationForm.controls['stock'].touched))"
+                    formControlName="stock"/>
+        </div>
+        <div class="col-md-6 col-12">
+            <label class="start-label text-truncate">Región</label>
+            <select 
+                    [attr.disabled]="loading? true:null"
+                    (change)="searchCity($event)"
+                    formControlName="region"
+                    [class]="(publicationForm.controls['region'].errors && (publicationForm.controls['region'].dirty || publicationForm.controls['region'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('region')"
+                    [matTooltipDisabled]="!(publicationForm.controls['region'].errors && (publicationForm.controls['region'].dirty || publicationForm.controls['region'].touched))"
+            >
+                <option *ngFor="let r of regions" value="{{r.id_region}}"> {{r.region}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-12">
+            <label class="start-label text-truncate">Comuna</label>
+            <select 
+ 	                [attr.disabled]="loading? true:null"
+                    (change)="enableAddress($event)"
+                    name="commune"
+                    id="commune"
+                    [class]="(publicationForm.controls['commune'].errors && (publicationForm.controls['commune'].dirty || publicationForm.controls['commune'].touched)) ? 'border-danger form-select form-select-md no-stick-select':'form-select form-select-md no-stick-select'"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('commune')"
+                    [matTooltipDisabled]="!(publicationForm.controls['commune'].errors && (publicationForm.controls['commune'].dirty || publicationForm.controls['commune'].touched))"
+                    formControlName="commune"></select>
+        </div>
+        <div class="col-12 col-md-10 d-flex flex-column justify-content-center">
+            <label class=" d-flex flex-column justify-content-center start-label">Dirección</label>
+            <input 
+ 	                [attr.disabled]="loading? true:null"
+                    id="address"
+                    (change)="showAddress($event)"
+                    formControlName="address"
+                    [class]="(publicationForm.controls['address'].errors && (publicationForm.controls['address'].dirty || publicationForm.controls['address'].touched)) ? 'border-danger form-control form-control-md':'form-control form-control-md'"
+                    matTooltipClass="bg-danger" matTooltipPosition="below"
+                    [matTooltip]="getError('address')"
+                    [matTooltipDisabled]="!(publicationForm.controls['address'].errors && (publicationForm.controls['address'].dirty || publicationForm.controls['address'].touched))"
+            />
+        </div>
+        <div *ngIf="lat !== 0 && lng !== 0" class="col-12 d-flex flex-column justify-content-center">
+            <google-map
+                    id="google"
+                    width="100%"
+                    [center]="center"
+                    [zoom]="15"
+                    (mapClick)="moveMap($event)"
+            >
+                <map-marker
+                        [position]="maker"
+                ></map-marker>
+            </google-map>
+            <p class="d-flex justify-content-center small">Si el marcador no esta bien posicionado, por favor haga clic en el mapa para corregirlo.</p>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center">
+            <button class="btn btn-lg" [disabled]="publicationForm.invalid || loading || lat === 0 || lng === 0">Crear Publicación</button>
+        </div>
+    </form>
+</div>

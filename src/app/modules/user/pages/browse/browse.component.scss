@@ -1,0 +1,32 @@
+:host{
+  height: 100%;
+}
+
+.categoryItem{
+  text-decoration:none;
+  color: black;
+  max-width: 80%;
+  position: relative;
+  top: 4px;
+  left: 2px;
+}
+.product{
+  padding: 5px;
+  border: 1px solid var(--subaster-main);
+  &:hover{
+    cursor: pointer;
+    border: 1px solid var(--subaster-main-60)
+  }
+}
+
+.filters{
+  border-bottom: 1px solid var(--subaster-main) !important;
+}
+
+.products-list{
+  border: 1px solid var(--subaster-main);
+}
+mat-paginator {
+  background-color: var(--subaster-main-60);
+  color: white;
+}

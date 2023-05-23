@@ -1,0 +1,40 @@
+.edit-card{
+  border: 2px solid var(--subaster-main-80);
+  border-radius: 0.5rem;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.preview{
+  height: 15vh;
+  max-height: 200px;
+}
+
+.button_img{
+  display: flex;
+  margin-right: 1rem;
+  position: relative;
+  background-color: transparent;
+  border: 2px solid var(--subaster-main-60);
+  border-radius: 0.5rem;
+  &:hover{
+    .close{
+      display: flex;
+    }
+    border: 2px solid red;
+  }
+}
+
+.close{
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  color: red;
+}

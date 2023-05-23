@@ -1,0 +1,51 @@
+<body>
+    <div class="container login-container my-5">
+        <form *ngIf="!send" class="row d-flex justify-content-center" (ngSubmit)="handleSubmit()" [formGroup]="logincontrol" novalidate>
+            <div class="col-12 my-5">
+                <h1 class="d-flex justify-content-center">Ingrese sus datos</h1>
+            </div>
+            <div class="form-group col-md-8 col-10 mx-md-2 mb-5">
+                <label class="d-flex justify-content-start fs-6 ms-1 mb-2" for="correo">Correo electrónico *</label>
+                <input
+                        [attr.disabled]="cargando? true:null"
+                        type="email"
+                        [class]="(logincontrol.controls['email'].errors && (logincontrol.controls['email'].dirty || logincontrol.controls['email'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                        formControlName="email"
+                        id="correo"
+                        placeholder="correoejemplo@empresa.cl"
+                        matTooltipClass="bg-danger" matTooltipPosition="below"
+                        [matTooltip]="getError('email')"
+                        [matTooltipDisabled]="!(logincontrol.controls['email'].errors && (logincontrol.controls['email'].dirty || logincontrol.controls['email'].touched))"
+                />
+            </div>
+            <div class="form-group col-md-8 col-10 mx-md-2 mb-3">
+                <label class="d-flex justify-content-start fs-6 ms-1 mb-2" for="exampleInputPassword1">Contraseña *</label>
+                <input
+                        [attr.disabled]="cargando? true:null"
+                        type="password"
+                        [class]="(logincontrol.controls['pass'].errors && (logincontrol.controls['pass'].dirty || logincontrol.controls['pass'].touched)) ? 'border-danger form-control form-control-lg':'form-control form-control-lg'"
+                        formControlName="pass"
+                        id="exampleInputPassword1"
+                        placeholder="Password"
+                        matTooltipClass="bg-danger" matTooltipPosition="below"
+                        [matTooltip]="getError('pass')"
+                        [matTooltipDisabled]="!(logincontrol.controls['pass'].errors && (logincontrol.controls['pass'].dirty || logincontrol.controls['pass'].touched))"
+                />
+            </div>
+            <div class="col-12  d-flex justify-content-center mb-5" style="position: relative; left: 0">
+                <a href="/core/recovery" routerLinkActive="router-link-active" >¿Olvidaste tu contraseña?</a> <!-- confirmar ruta -->
+            </div>
+            <div class="col-12 d-flex justify-content-center mb-5">
+                <button class="btn btn-lg me-5" type="submit" [disabled]="logincontrol.invalid" >Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 d-flex justify-content-center mb-5">
+        <button id="back" class="btn btn-lg" onclick="history.go(-1)">
+            <span class="material-symbols-outlined" style="vertical-align: middle;">
+                chevron_left
+            </span>
+        <a  id="textback">Regresar</a>
+    </button>
+    </div>
+</body>

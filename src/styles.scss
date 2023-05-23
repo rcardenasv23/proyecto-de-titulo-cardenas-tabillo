@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --subaster-main: rgb(13, 133, 84);
+  --subaster-main-80: rgba(3, 133, 84, 0.8);
+  --subaster-main-60: rgba(3, 133, 84, 0.6);
+  --subaster-main-40: rgba(3, 133, 84, 0.4);
+  --subaster-main-20: rgba(3, 133, 84, 0.2);
+}
+
+ .footer{
+  position: relative;
+  bottom: 0;
+  background-color: var(--subaster-main);
+  min-width: 100%;
+  margin-top: 5vh;
+  min-height: 10vh;
+}
+
+.mat-spinner-color::ng-deep circle{
+  stroke: var(--subaster-main-80) !important;
+}
+
+.line-clamp-2{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.snack-bar-success{
+  background-color: rgb(59, 129, 59);
+  color: white;
+}
+
+.snack-bar-alert{
+  background-color: #8d8d0b;
+  color: white;
+}
+
+.snack-bar-loading{
+  background-color: white;
+  color: black;
+}
+
+.snack-bar-error{
+  background-color: rgb(159, 51, 51);
+  color: white;
+}
+
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}

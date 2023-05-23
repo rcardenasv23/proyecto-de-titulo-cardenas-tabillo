@@ -1,0 +1,123 @@
+<nav class="navbar navbar-dark bg-success pt-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" [routerLink]="'/user/home'" ><img id="logoSubaster" src="assets/Subaster.png" width="100" height="100"/></a>
+        <form (ngSubmit)="search($event)" [formGroup]="searchForm" class="input-group d-flex flex-grow-1 mt-3 d-none d-md-flex" role="search" style="max-width: 50vw;">
+            <input (search)="onSearch($event)" class="form-control" type="search" placeholder="Buscar producto" aria-label="Search">
+            <button class="bg-white btn p-1" type="submit" style="border:1px solid #ced4da; border-left: none">
+                <span class="material-symbols-outlined" style="position: relative; top: 15%;font-size: 2rem; font-weight: 800">
+                    search
+                </span>
+            </button>
+        </form>
+        <button class="navbar-toggler offcanvas-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasRight">
+            <span class="navbar-toggler-icon"></span>
+            <br>
+            <a id="Menu" style="color: white;">Menú</a>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header" style="height: 10%">
+                <h2 class="offcanvas-title" id="offcanvasNavbarLabel">¡Bienvenido a Subaster!</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                    <li class="nav-item" *ngIf="user === undefined">
+                        <a class="nav-link active" aria-current="page" href="core/login">
+                          <span id="icon" class="material-symbols-outlined">
+                            account_circle
+                          </span>
+                            Iniciar sesión
+                        </a>
+                        <a class="nav-link active pl-2" aria-current="page" href="/core/signup" align-item-top>
+                          <span class="material-symbols-outlined">
+                            person_add
+                          </span>
+                            Registrarse
+                        </a>
+                    </li>
+                    <li class="nav-item" *ngIf="user !== undefined">
+                        <a class="nav-link active" aria-current="page" href="user/profile">
+                            <span id="icon" class="material-symbols-outlined">
+                                account_circle
+                            </span>
+                            Ver Perfil
+                        </a>
+                        <a *ngIf="user.seller" class="nav-link active pl-2" aria-current="page" href="/seller/menu" align-item-top>
+                            <span class="material-symbols-outlined">
+                                badge
+                            </span>
+                            Ver perfil de vendedor
+                        </a>
+                        <a *ngIf="user.seller" class="nav-link active pl-2" aria-current="page" href="/seller/menu/(seller-menu:post)" align-item-top>
+                            <span class="material-symbols-outlined">
+                                publish
+                            </span>
+                            Publicar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                              <span class="material-symbols-outlined">
+                                home
+                              </span>
+                            Inicio
+                        </a>
+                        <a class="nav-link" href="/core/us">
+                              <span class="material-symbols-outlined">
+                                info
+                              </span>
+                            Nosotros
+                        </a>
+                        <a class="nav-link" href="core/map">
+                              <span class="material-symbols-outlined">
+                                pin_drop
+                              </span>
+                            Mapa con publicaciones
+                        </a>
+                        <a class="nav-link" routerLink="/user/shopping-cart">
+                              <span class="material-symbols-outlined">
+                                shopping_cart
+                              </span>
+                            Carrito de compras
+                        </a>
+                        <a class="nav-link" target="_blank" href="https://share.hsforms.com/1wwfhYfCmRvquUG2JywJ6Xgdwqvl">
+                            <span class="material-symbols-outlined">
+                                    contact_support
+                            </span>
+                          Contacto
+                      </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <span class="material-symbols-outlined">
+                            category
+                          </span>
+                            Categorías
+                        </a>
+                        <ul id="categoriesDropdown" class="dropdown-menu">
+                            <li *ngFor="let category of categories ">
+                                <a class="dropdown-item" (click)="browse(category.id_pubc)">{{category.publication_category}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li *ngIf="user !== undefined" class="nav-item">
+                        <a (click)="logout()" class="nav-link" role="button">
+                              <span class="material-symbols-outlined">
+                                logout
+                              </span>
+                            Cerrar sesión
+                        </a>
+                    </li>
+                    <form (ngSubmit)="search($event)" [formGroup]="searchForm" class="input-group d-flex flex-grow-1 mt-3 d-flex d-md-none" role="search">
+                        <input (search)="onSearch($event)" class="form-control" type="search" placeholder="Buscar producto" aria-label="Search">
+                        <button class="bg-white btn p-1" type="submit" style="border:1px solid #ced4da; border-left: none">
+                            <span class="material-symbols-outlined" style="position: relative; top: 15%;font-size: 2rem; font-weight: 800">
+                                search
+                            </span>
+                        </button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

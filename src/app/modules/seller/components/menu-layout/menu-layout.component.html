@@ -1,0 +1,19 @@
+<div class="profile-container">
+    <div class="row">
+        <div class="col-12 py-2">
+            <button [routerLink]="'.'" class="w-100 layout-button">Información Basica</button>
+        </div>
+        <div class="col-12 py-2">
+            <button [routerLink]="[{outlets: {'seller-menu': 'post'}}]" class="w-100 layout-button">Crear Publicacion</button>
+        </div>
+        <div class="col-12 py-2">
+            <button [routerLink]="[{outlets: {'seller-menu': 'publications'}}]" class="w-100 layout-button">Ver Publicaciones</button>
+        </div>
+        <div class="col-12 py-2">
+            <button [routerLink]="[{outlets: {'seller-menu': 'remain-payments'}}]" class="w-100 layout-button">Ver Pagos Pendientes</button>
+        </div>
+        <div class="col-12 py-2">
+            <button [routerLink]="'/user/profile'" class="w-100 layout-button">Ver Perfil de Usuario</button>
+        </div>
+    </div>
+</div>

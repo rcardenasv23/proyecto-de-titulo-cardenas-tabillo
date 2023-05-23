@@ -1,0 +1,74 @@
+<body>
+<div class="container-fluid">
+    <div class="row p-4 me-md-4">
+        <div class="col-lg-3 col-12 p-2 products-list py-0 mt-lg-4">
+            <div class="row px-1">
+                <div class="col-12 filters py-3 d-flex justify-content-center">
+                    <span class="fs-5 ">Filtros</span>
+                </div>
+                <div class="col-12 filters">
+                    <button (click)="shown = !shown" data-bs-toggle="collapse" aria-expanded="true" href="#filters" aria-controls="filters" class="col-12 py-1 d-flex justify-content-between border-0 bg-transparent">
+                        <p class="m-0 text-truncate">Categorías </p>
+                        <span *ngIf="!shown" class="material-symbols-outlined">
+                            expand_more
+                        </span>
+                        <span *ngIf="shown" class="material-symbols-outlined">
+                            expand_less
+                        </span>
+                    </button>
+                </div>
+                <div class="col-12">
+                    <div class="collapse show" id="filters">
+                        <div *ngFor="let item of categories">
+                            <input type="checkbox" [checked]="this.filter?.category?.includes(item.id_pubc)" (change)="checkChecked(item.id_pubc)" id="{{item.id_pubc}}" name="filtro">
+                            <label class="text-truncate categoryItem">{{item.publication_category}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-12 ">
+            <h2>Todos los productos</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 mt-2 px-4" *ngFor="let item of publications">
+                    <div class="row product" [routerLink]="['/user/publication/', item.id_fixed]">
+                        <div class="col-12 d-flex justify-content-center" style="height: 150px ">
+                            <img class="d-flex justify-content-center" [src]="item.files[0].url" style="height:100% ; width: auto"/>
+                        </div>
+                        <div style="height: 50%">
+                            <p class="text-truncate">{{item.title}}</p>
+                            <p class="line-clamp-2">{{item.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-end w-100 mt-2">
+            <div class="d-flex justify-content-between me-1">
+                <p style="position: relative;top: 5px;margin-inline-end: 2px">Total por página:</p>
+                <select [value]="filter.limit" (change)="setLimit($event)" style="width: 60px;">
+                    <option value="6" [selected]="filter.limit === 6? true:null">6</option>
+                    <option value="14" [selected]="filter.limit === 14? true:null">14</option>
+                    <option value="26" [defaultSelected]="filter.limit === 26? true:null">26</option>
+                    <option value="50" [defaultSelected]="filter.limit === 50? true:null">50</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <p style="position: relative;top: 5px;margin-inline-end: 2px">Página {{filter.offset + 1}} - {{this.totalPages}}</p>
+                <div class="d-flex justify-content-between" style="position:relative;">
+                    <button (click)="previousPage()" [attr.disabled]="filter.offset===0 ? true : null" class="p-0 bg-transparent border-0">
+                        <span class="material-symbols-outlined">
+                        chevron_left
+                    </span>
+                    </button>
+                    <button (click)="nextPage()" [attr.disabled]="totalPages === filter.offset + 1  || totalPages === 1 ? true : null" class="p-0 bg-transparent border-0">
+                        <span class="material-symbols-outlined">
+                            chevron_right
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

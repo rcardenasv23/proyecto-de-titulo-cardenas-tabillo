@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-12">
+        <h2 class=" fs-3 fw-semibold">
+            Comentarios
+            <span class="fs-6 fw-normal" *ngIf="comments.length > 0" style="position:relative; bottom: 2px">
+                ({{comments.length}})
+            </span>
+        </h2>
+    </div>
+    <div *ngIf="comments.length > 0" class="col-12 d-flex justify-content-between align-items-center">
+        <button (click)="previousComment()" [disabled]="index === 0" class="p-0 bg-transparent border-0 ">
+            <span class="material-symbols-outlined arrow-left">
+                arrow_left
+            </span>
+        </button>
+        <div class="border rounded border-success p-4 d-flex flex-column flex-grow-1">
+            <p>{{comments[index].user.first_name}} {{comments[index].user.last_name}}</p>
+            <p class="line-clamp-3">{{comments[index].comment}}</p>
+        </div>
+        <button (click)="nextComment()" [disabled]="index === comments.length - 1" class="p-0 bg-transparent border-0 ">
+            <span class="material-symbols-outlined arrow-right">
+                arrow_right
+            </span>
+        </button>
+    </div>
+    <div *ngIf="comments.length === 0" class="col-12 d-flex justify-content-between align-items-center">
+        <div class="p-4 border border-success rounded d-flex flex-column justify-content-center align-items-center w-100">
+            <span class="material-symbols-outlined" style="color: var(--subaster-main-60);font-size: 80px">
+                comments_disabled
+            </span>
+             <p style="color: var(--subaster-main-60);font-size: 20px">Publicación sin comentarios</p>
+        </div>
+    </div>
+    <div *ngIf="canComment" class="col-12 d-flex justify-content-center mt-2">
+        <button data-bs-toggle="modal" data-bs-target="#commentModal" class="p-2 rounded-3 bg-transparent border border-success">Comentar</button>
+    </div>
+</div>
+
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" [formGroup]="commentForm" (ngSubmit)="handleComment()" novalidate>
+            <div class="modal-header">
+                <h1 class="modal-title fs-4" id="commentModalLabel">Nuevo comentario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="p-2" >
+                    <h3 class="fs-5">Ingresa tu comentario</h3>
+                    <div class="my-2">
+                        <label class="fs-6 fw-bold mb-2">Correo electrónico</label>
+                        <input class="form-control" [value]="user?.email" readonly="true"/>
+                    </div>
+                    <div>
+                        <label class="fs-6 fw-bold mb-2">Comentario</label>
+                        <textarea class="form-control" rows="4" formControlName="comment" placeholder="Tu comentario"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success">Comentar</button>
+            </div>
+        </form>
+    </div>
+</div>
